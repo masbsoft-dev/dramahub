@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-injected>html,body{background:transparent}</style><script data-omelette-injected>(()=>{{const n=new URLSearchParams(location.search).get("theme");if(n==="light"||n==="dark"){document.documentElement.dataset.theme=n}}{if(new URLSearchParams(location.search).get("_omthumb")==="1"){const n=(f)=>{const g=f.focus;if(!g)return;f.focus=function(h){g.call(this,{...h,preventScroll:true})}};n(HTMLElement.prototype);n(SVGElement.prototype);if(typeof MathMLElement!=="undefined"){n(MathMLElement.prototype)}const d=(f)=>{f.removeAttribute("autofocus");f.inert=true;if(!(f instanceof HTMLElement))f.removeAttribute("tabindex")};const p=(f)=>{if(f.hasAttribute("autofocus"))d(f);for(const g of f.querySelectorAll("[autofocus]")){d(g)}};p(document.documentElement);new MutationObserver((f)=>{for(const g of f){for(const h of g.addedNodes){if(h.nodeType===1)p(h)}}}).observe(document,{childList:true,subtree:true})}}{const n=()=>{try{if(document.querySelector('meta[name="color-scheme"]'))return;const d=getComputedStyle(document.documentElement).getPropertyValue("color-scheme").trim();if(d&&d!=="normal")return;const p=(y)=>{if(!y)return null;const m=getComputedStyle(y).backgroundColor.match(/^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?\s*\)$/);if(!m)return null;const w=m[4]==null?1:parseFloat(m[4])/(m[4].endsWith("%")?100:1);if(w<0.99)return null;return[+m[1],+m[2],+m[3]]};const f=p(document.body)||p(document.documentElement);if(!f)return;const g=(y)=>{const m=y/255;return m<=0.04045?m/12.92:((m+0.055)/1.055)**2.4};const h=0.2126*g(f[0])+0.7152*g(f[1])+0.0722*g(f[2]);document.documentElement.style.setProperty("color-scheme",h<0.4?"dark":"light")}catch{}};if(document.readyState==="complete")n();else window.addEventListener("load",n)}var I=[];var B=false;var K=false;var C=()=>{};if(K===true){try{const n=setTimeout.bind(window);const d=1e4;const p=15;const f=1e4;const g=120000;const h=200;const y=(o)=>{try{let r;if(typeof o==="string")r=o;else if(o instanceof URL)r=o.href;else if(typeof Request!=="undefined"&&o instanceof Request)r=o.url;else return null;if(!r)return null;const l=document.baseURI;const i=new URL(r,l);if(i.protocol!=="http:"&&i.protocol!=="https:")return null;if(i.origin!==new URL(l).origin)return null;return i.origin+i.pathname}catch{return null}};const m=new Map;const w=(o)=>{let r=m.get(o);if(!r){if(m.size>=h){const l=m.keys().next().value;if(l!==undefined)m.delete(l)}r={fails:[],until:0,cooldown:f,hard:false};m.set(o,r)}return r};const R=(o)=>{const r=m.get(o);return r!==undefined&&r.until>Date.now()};const O=(o,r)=>{const l=Date.now();const i=w(o);if(r)i.hard=true;if(i.until>l)return;i.fails.push(l);while(i.fails.length>0&&i.fails[0]<=l-d)i.fails.shift();if(i.fails.length>=p){i.until=l+i.cooldown;if(i.hard)i.cooldown=Math.min(i.cooldown*2,g);i.fails.length=0;try{n(()=>{try{S(true)}catch{}},i.until-l+100)}catch{}console.warn("[omelette] asset circuit breaker: pausing requests to "+o+" for "+Math.round((i.until-l)/1000)+"s after "+p+" failures in "+d/1000+"s")}};const e=(o)=>{m.delete(o)};const t=100;const a=new WeakMap;const u=new Set;let s=null;const S=(o)=>{for(const r of Array.from(u)){try{const l=a.get(r);if(l===undefined){u.delete(r);continue}if(o){const i=y(l);if(i!==null&&R(i))continue}a.delete(r);u.delete(r);if(s!==null)s.call(r,l)}catch{}}};C=()=>{try{m.clear();S(false)}catch{}};document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")C()});const _=window.fetch;if(typeof _==="function"){const o=function(...r){let l=null;try{l=y(r[0])}catch{}if(l!==null&&R(l)){let c;try{if(r[1]&&r[1].signal!==undefined){c=r[1].signal||undefined}else if(typeof Request!=="undefined"&&r[0]instanceof Request){c=r[0].signal||undefined}}catch{c=undefined}return new Promise((k,b)=>{const E=()=>{try{return c.reason!==undefined?c.reason:new DOMException("The operation was aborted.","AbortError")}catch{return new DOMException("The operation was aborted.","AbortError")}};try{if(c&&c.aborted){b(E());return}}catch{}let T=false;const j=()=>{if(T)return;T=true;b(E())};try{if(c)c.addEventListener("abort",j,{once:true})}catch{}n(()=>{if(T)return;T=true;try{if(c)c.removeEventListener("abort",j)}catch{}let L;try{L=new Response(null,{status:429,statusText:"Too Many Requests",headers:{"Retry-After":"10"}})}catch{L={ok:false,status:429}}k(L)},250)})}const i=_.apply(window,r);if(l!==null){const c=l;i.then((k)=>{try{if(k.ok)e(c);else if(k.status===401||k.status===403||k.status===404||k.status===429){O(c,k.status!==404)}}catch{}},()=>{})}return i};window.fetch=o}const v=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");if(v!==undefined&&v.set!==undefined&&v.get!==undefined){const o=v.set;s=o;Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:v.enumerable,get:v.get,set(r){const l=`${r}`;try{const i=y(l);if(i!==null&&R(i)){a.set(this,l);if(u.size<t)u.add(this);return}}catch{}try{a.delete(this);u.delete(this)}catch{}o.call(this,l)}})}try{const o=HTMLImageElement.prototype.setAttribute;HTMLImageElement.prototype.setAttribute=function(r,l){if(arguments.length<2){o.apply(this,arguments);return}if(typeof r==="string"&&r.toLowerCase()==="src"){const i=`${l}`;try{const c=y(i);if(c!==null&&R(c)){a.set(this,i);if(u.size<t)u.add(this);return}a.delete(this);u.delete(this)}catch{}o.call(this,r,i);return}o.call(this,r,l)}}catch{}window.addEventListener("error",(o)=>{try{const r=o.target;if(r instanceof HTMLImageElement){const l=y(r.currentSrc||r.src||"");if(l!==null)O(l,true)}}catch{}},true);window.addEventListener("load",(o)=>{try{const r=o.target;if(r instanceof HTMLImageElement){const l=y(r.currentSrc||r.src||"");if(l!==null)e(l);const i=a.get(r);if(i!==undefined){let c=false;try{c=new URL(i,document.baseURI).href===new URL(r.currentSrc||r.src||"",document.baseURI).href}catch{c=false}if(c){a.delete(r);u.delete(r)}}}}catch{}},true)}catch{}}var J=30000;var G=3000;document.addEventListener("DOMContentLoaded",()=>{const n=window.Babel;const d="om-src-id";if(n&&n.registerPlugin&&!(n.availablePlugins&&n.availablePlugins[d])){n.registerPlugin(d,({types:h})=>({visitor:{JSXOpeningElement(y,m){const w=y.node;if(w.name&&w.name.type==="JSXMemberExpression")return;for(let t=0;t<w.attributes.length;t++){const a=w.attributes[t];if(a.type==="JSXAttribute"&&a.name&&a.name.name==="data-om-id")return}const R=m.file&&m.file.opts&&m.file.opts.filename||"?";const O=w.loc&&w.loc.start;const e=`jsx:${R}:${w.start??0}:${O?O.line:0}:${O?O.column+1:0}`;w.attributes.push(h.jsxAttribute(h.jsxIdentifier("data-om-id"),h.stringLiteral(e)))}}}))}const p="om-text-extract";let f=false;if(B&&n&&n.registerPlugin&&!(n.availablePlugins&&n.availablePlugins[p])){const h=window.React;if(h&&h.useSyncExternalStore&&h.createElement){f=true;const y={};const m=new Set;let w=0;window.__omTextO=y;window.__omTextSet=(e)=>{for(const t in e){const a=e[t];if(a==null)delete y[t];else y[t]=a}w++;m.forEach((t)=>t())};const R=(e)=>{m.add(e);return()=>m.delete(e)};const O=()=>w;window.__OmT=function e(t){h.useSyncExternalStore(R,O,O);return h.createElement("span",{"data-om-text":t.i,className:"__om-t"},t.i in y?y[t.i]:t.children)};n.registerPlugin(p,({types:e})=>{const t={style:1,script:1,noscript:1,textarea:1,title:1,option:1,text:1,tspan:1,textPath:1};const a={placeholder:1,alt:1,title:1,label:1,"aria-label":1,"aria-description":1,"aria-placeholder":1};const u=(o,r)=>e.logicalExpression("??",e.memberExpression(e.logicalExpression("||",e.memberExpression(e.identifier("window"),e.identifier("__omTextO")),e.objectExpression([])),e.stringLiteral(o),true),r);const s=(o)=>o.file&&o.file.opts&&o.file.opts.filename||"?";const S=(o)=>o.file&&o.file.code||"";const _=(o,r)=>{const l=(c)=>c&&c.start!=null&&c.end!=null&&(c.type==="StringLiteral"||c.type==="TemplateLiteral"&&c.expressions.length===0)?[c.start,c.end]:null;const i=l(r);if(i)return i;if(r&&r.type==="Identifier"){const c=o.scope.getBinding(r.name);if(c&&c.constant&&c.path.node.type==="VariableDeclarator"){return l(c.path.node.init)}}return null};const v=(o,r,l)=>{const i=o.node;let c=false;const k=(E,T)=>{c=true;return e.jsxElement(e.jsxOpeningElement(e.jsxIdentifier("__OmT"),[e.jsxAttribute(e.jsxIdentifier("i"),e.stringLiteral(E))],false),e.jsxClosingElement(e.jsxIdentifier("__OmT")),[T],false)};const b=i.children.map((E)=>{if(E.type==="JSXText"){if(E.start==null||E.end==null)return E;const T=l.slice(E.start,E.end);const j=T.length-T.trimStart().length;const L=T.length-T.trimEnd().length;if(j+L>=T.length)return E;return k(`txt:${r}:${E.start+j}:${E.end-L}`,E)}if(E.type==="JSXExpressionContainer"){const T=_(o,E.expression);if(T)return k(`str:${r}:${T[0]}:${T[1]}`,E)}return E});if(c)i.children=b};return{visitor:{JSXOpeningElement(o,r){const l=o.node;const i=s(r);const c={};for(let k=0;k<l.attributes.length;k++){const b=l.attributes[k];if(b.type!=="JSXAttribute"||!b.name)continue;const E=b.name.name;if(!a[E])continue;if(!b.value||b.value.type!=="StringLiteral")continue;if(b.value.start==null||b.value.end==null)continue;const T=`txt:${i}:${b.value.start}:${b.value.end}`;c[E]=T;b.value=e.jsxExpressionContainer(u(T,e.stringLiteral(b.value.value)))}if(Object.keys(c).length){l.attributes.push(e.jsxAttribute(e.jsxIdentifier("data-om-text-attrs"),e.stringLiteral(JSON.stringify(c))))}},JSXElement(o,r){const l=o.node.openingElement;const i=l&&l.name&&l.name.name;if(i==="__OmT")return;if(typeof i==="string"&&t[i])return;v(o,s(r),S(r))},JSXFragment(o,r){v(o,s(r),S(r))}}}})}}const g=f?["transform-react-jsx-source",d,p]:["transform-react-jsx-source",d];document.querySelectorAll('script[type="text/babel"],script[type="text/jsx"]').forEach((h,y)=>{const m=h.getAttribute("data-plugins")||"";const w=g.filter((R)=>m.indexOf(R)<0);if(w.length){h.setAttribute("data-plugins",m?`${m},${w.join(",")}`:w.join(","))}if(!h.hasAttribute("data-filename")){h.setAttribute("data-filename",h.getAttribute("src")||`inline-${y}`)}})});var A=window.parent;var U="not editable here â open the project in the Claude Design editor to save";var W=()=>Promise.resolve({persisted:false,noHost:true,reason:U});var H=W;var M="data/storage.json";var z=()=>{try{const n=new URL(document.baseURI);const d=n.pathname.match(/\/projects\/([^/]+)\/serve\//);if(d)return d[1];return n.hostname.split(".")[0]||""}catch{return location.hostname.split(".")[0]||""}};var Z=()=>{try{const n=new URL(document.baseURI);const d=n.pathname.indexOf("/serve/");if(d>=0)return n.origin+n.pathname.slice(0,d+"/serve/".length)+M}catch{}return"./"+M};var x=null;var N=()=>{if(!x){x=fetch(Z(),{cache:"no-store"}).then((n)=>{if(n.ok)return n.text();return n.status===404?"":null}).catch(()=>null).then((n)=>{if(n===null){x=null;return null}const d=new Map;if(!n)return d;let p;try{p=JSON.parse(n)}catch{console.warn("[omelette.storage] "+M+" is not valid JSON; treating the store as unreadable so a save cannot overwrite the "+"hand-edited bytes. Fix the JSON (or delete the file) to re-enable persistence.");x=null;return null}if(p===null||typeof p!=="object"||Array.isArray(p)){console.warn("[omelette.storage] "+M+" doesn't hold a JSON object; treating the store as unreadable so a save cannot "+"overwrite the hand-edited bytes. Make the top level a JSON object to re-enable persistence.");x=null;return null}const f=p;if("data"in f){const g=f.data;if(g===null||typeof g!=="object"||Array.isArray(g)){console.warn("[omelette.storage] "+M+' has a "data" field that is not a JSON object; treating the store as unreadable so a '+'save cannot overwrite the hand-edited bytes. Make "data" a JSON object to re-enable persistence.');x=null;return null}const h=f._meta;const y=h!==null&&typeof h==="object"?h.project:undefined;if(typeof y==="string"&&y!==""&&y!==z())return d;for(const m of Object.keys(g))d.set(m,g[m]);return d}for(const g of Object.keys(f)){if(g!=="_meta")d.set(g,f[g])}return d})}return x};var F=(n)=>H(M,JSON.stringify({_meta:{project:z(),version:1},data:Object.fromEntries(n)},null,2));var D=Promise.resolve();var $=(n)=>{const d=D.then(n);D=d.then(()=>{return},()=>{return});return d};var V=/sk-(?:ant-)?[A-Za-z0-9_-]{16,}|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|xox[a-z]-[A-Za-z0-9][A-Za-z0-9-]{9,}|AIza[0-9A-Za-z_-]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----/;var Y=/password|passwd|secret|api[_-]?key|access[_-]?token|auth[_-]?token|credential/i;var Q=(n,d,p)=>{if(V.test(d)||Y.test(n)&&typeof p==="string"&&p.length>=8){console.warn('[omelette.storage] the value for "'+n+'" looks like a credential. The storage file is a plaintext project file â visible to '+"everyone with project access and copied when the project is duplicated. Do not store secrets here.")}};var q={persisted:false,reason:"could not load the existing store â not overwriting it"};var X={persisted:false,reason:"stored value changed since a failed read â re-read this key before saving"};var P=new Set;var ee={get:(n)=>{if(typeof n!=="string"){return Promise.reject(new TypeError("storage.get: key must be a string"))}return $(N).then((d)=>{if(d===null){P.add(n);return null}P.delete(n);if(!d.has(n))return null;const p=d.get(n);return p==null?null:JSON.parse(JSON.stringify(p))})},set:(n,d)=>{if(typeof n!=="string"){return Promise.reject(new TypeError("storage.set: key must be a string"))}let p;try{p=JSON.stringify(d)}catch(g){return Promise.reject(new TypeError("storage.set: value must be JSON-serializable ("+String(g)+")"))}if(p===undefined){return Promise.reject(new TypeError("storage.set: value must be JSON-serializable"))}Q(n,p,d);const f=JSON.parse(p);return $(()=>N().then((g)=>{if(g===null)return q;if(P.has(n)){if(g.has(n))return X;P.delete(n)}g.set(n,f);return F(g)}))},delete:(n)=>{if(typeof n!=="string"){return Promise.reject(new TypeError("storage.delete: key must be a string"))}return $(()=>N().then((d)=>{if(d===null)return q;if(P.has(n)){if(d.has(n))return X;P.delete(n)}d.delete(n);return F(d)}))},keys:()=>$(N).then((n)=>n===null?[]:Array.from(n.keys()))};window.omelette={writeFile:(n,d)=>H(n,d).then((p)=>{if(!p.persisted&&!p.noHost){throw new Error(p.reason||"write failed")}}),storage:ee};if(A&&A!==window){const n=(e,t)=>{try{A.postMessage({__omelette_log:true,type:e,data:t},"*")}catch{}};["log","warn","error"].forEach((e)=>{const t=console[e];console[e]=(...a)=>{const u=a.map((s)=>{try{return typeof s==="object"?JSON.stringify(s):String(s)}catch{try{return String(s)}catch{return"[unstringifiable]"}}}).join(" ");n(e,u);t.apply(console,a)}});window.addEventListener("error",(e)=>{const t=e.target;if(t&&t!==window&&t.tagName){const a=t.src||t.href||"";n("resource_error",`${t.tagName} failed to load: ${a}`)}else{n("error",`${e.message||"Unknown error"} at ${e.filename||"?"}:${e.lineno||0}:${e.colno||0}`)}},true);window.addEventListener("unhandledrejection",(e)=>{const t=e.reason;const a=t instanceof Error?`${t.message} ${t.stack}`:String(t);n("error",`Unhandled rejection: ${a}`)});window.addEventListener("click",(e)=>{if(e.defaultPrevented||e.button!==0)return;if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const t=e.composedPath?e.composedPath():[];const a=["button","input","select","textarea","summary","label"];let u=null;for(const v of t){if(!(v instanceof Element))continue;if(v.localName==="a"){if(!(v instanceof HTMLAnchorElement))return;u=v;break}if(a.indexOf(v.localName)!==-1)return}if(!u)return;if(u.isContentEditable)return;const s=u.closest("[contenteditable]");if(s&&s.getAttribute("contenteditable")!=="false")return;const S=(u.getAttribute("target")||"_self").toLowerCase();if(S!=="_self"&&S!=="_top"&&S!=="_parent")return;let _;try{_=new URL(u.href)}catch{return}if(_.protocol!=="http:"&&_.protocol!=="https:")return;if(location.origin==="null")return;if(_.origin===location.origin)return;e.preventDefault();window.open(_.href,"_blank","noopener,noreferrer")});const d=()=>{try{A.postMessage({type:"omelette:height",height:document.documentElement.scrollHeight},"*")}catch{}};if(window.ResizeObserver)new ResizeObserver(d).observe(document.documentElement);const p=()=>{d();if(!document.querySelector('script[type="text/babel"],script[type="text/jsx"]'))return;const e=()=>document.getElementById("root")||document.querySelector("body > div[id]");const t=e()?.firstElementChild??null;let a=0;const u=()=>{const s=e();if(s&&s.firstElementChild!==t||++a>30){d();return}setTimeout(u,100)};setTimeout(u,100)};if(document.readyState==="complete")p();else window.addEventListener("load",p);const f={};let g=0;const h=(e)=>new Promise((t,a)=>{if(!I.length){a(new Error("claude.complete: no parent origin"));return}const u=`c${++g}`;const s=()=>setTimeout(()=>{delete f[u];a(new Error(`claude.complete: no data for ${J/1000}s`))},J);const S=s();f[u]={resolve:t,reject:a,text:"",t:S,arm:s};try{for(const _ of I){A.postMessage({__om_api:true,id:u,body:e},_)}}catch(_){clearTimeout(S);delete f[u];a(_)}});const y=8;const m=async(e,t)=>{if(!Array.isArray(e.messages)){throw new Error("claude.complete: tools require a messages array")}const a=e.messages.slice();const u={...e,tools:e.tools.map((_)=>{if(_===null||typeof _!=="object")return _;const v={};for(const o of Object.keys(_)){if(typeof _[o]!=="function")v[o]=_[o]}return v})};const s=u.tool_choice;const S=s!=null&&(s.type==="any"||s.type==="tool")?{...u,tool_choice:s.disable_parallel_tool_use!==undefined?{type:"auto",disable_parallel_tool_use:s.disable_parallel_tool_use}:{type:"auto"}}:u;for(let _=0;_<y;_++){const v=await h({..._===0?u:S,messages:a});const o=v.message;const r=o&&Array.isArray(o.content)?o.content:null;const l=r?r.filter((c)=>c?.type==="tool_use"):[];if(o?.stop_reason!=="tool_use"||l.length===0){return v.text}const i=[];for(const c of l){const k=t.get(c.name);if(!k){i.push({type:"tool_result",tool_use_id:c.id,content:`no handler for tool "${c.name}"`,is_error:true});continue}try{const b=await k(c.input);const E=typeof b==="string"?b:O(b)??"";i.push({type:"tool_result",tool_use_id:c.id,content:E})}catch(b){i.push({type:"tool_result",tool_use_id:c.id,content:String(b?.message??b??"tool handler failed"),is_error:true})}}a.push({role:"assistant",content:r},{role:"user",content:i})}throw new Error(`claude.complete: exceeded ${y} tool turns`)};window.claude={complete(e){const t=e;if(t!==null&&typeof t==="object"&&Array.isArray(t.tools)&&t.tools.some((a)=>a!==null&&typeof a==="object"&&typeof a.run==="function")){const a=new Map;for(const u of t.tools){if(u!==null&&typeof u==="object"&&typeof u.run==="function"){a.set(String(u.name),u.run)}}return m(t,a)}return h(e).then((a)=>a.text)}};const w={};let R=0;H=(e,t)=>new Promise((a)=>{if(!I.length){a({persisted:false,noHost:true,reason:U});return}const u=`f${++R}`;const s=setTimeout(()=>{delete w[u];a({persisted:false,noHost:true,reason:U})},G);w[u]={settle:a,t:s};try{for(const S of I){A.postMessage({__om_file:true,id:u,op:"write",path:e,content:t},S)}}catch{clearTimeout(s);delete w[u];a({persisted:false,noHost:true,reason:U})}});const O=(e)=>{try{return JSON.stringify(e)}catch{return JSON.stringify(String(e))}};window.addEventListener("message",(e)=>{if(I.indexOf(e.origin)<0)return;if(e.source!==A)return;const t=e.data;if(!t)return;if(t.type==="omelette-preview-refresh"){if(typeof t.token!=="string"||!/^[0-9a-f.-]+(\.(rc|pr-[0-9]+))?(\.[0-9]+\.[0-9a-f]{16})?$/.test(t.token))return;const s=Math.max(1,Math.floor((t.expiresAt||0)-Date.now()/1000));document.cookie="__Host-omelette-preview="+t.token+"; Path=/; Secure; SameSite=None; Partitioned; Max-Age="+s;C();return}if(t.__om_file_r){const s=w[t.id];if(!s)return;clearTimeout(s.t);delete w[t.id];s.settle(t.ok?{persisted:true}:{persisted:false,reason:t.error||"write failed"});return}if(t.__om_api_r){const s=f[t.id];if(!s)return;if(t.error!=null){clearTimeout(s.t);delete f[t.id];s.reject(new Error(t.error));return}if(t.chunk!=null){clearTimeout(s.t);s.t=s.arm();s.text+=t.chunk;return}if(t.done){clearTimeout(s.t);delete f[t.id];s.resolve({text:t.text!=null?t.text:s.text,message:t.message});return}return}if(!t.__om_eval)return;const a=t;const u=(s)=>{e.source.postMessage({...s,__om_eval_r:1,id:a.id},e.origin)};try{const s=(0,eval)(a.code);if(s&&typeof s.then==="function"){s.then((S)=>u({ok:1,v:O(S)}),(S)=>u({ok:0,e:String(S)}))}else{u({ok:1,v:O(s)})}}catch(s){u({ok:0,e:String(s)})}})}})();
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#07070B;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#F5F3F7}
+a{color:#FF3D71;text-decoration:none}
+a:hover{color:#FF7FA2}
+::-webkit-scrollbar{height:6px;width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:8px}
+@keyframes dhFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes dhPulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media (max-width:1180px){.dh-hero-posters{display:none!important}}
+@media (max-width:1080px){.dh-nav-secondary{display:none!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#07070B;padding-bottom:80px">
+
+  <div style="position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 20px;background:rgba(10,10,15,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)">
+    <div style="display:flex;align-items:center;gap:9px;padding-right:14px;border-right:1px solid rgba(255,255,255,.1)">
+      <div style="width:9px;height:9px;border-radius:50%;background:#FF3D71"></div>
+      <span style="font-family:Unbounded,sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase">Dramahub</span>
+      <span style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6F6C7E;font-weight:600">ProtÃ³tipo</span>
+    </div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;min-width:0">
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="12">
+        <button onClick="{{ m.go }}" style="{{ m.css }}">{{ m.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <div style="display:flex;background:#17171F;border-radius:9px;padding:3px;border:1px solid rgba(255,255,255,.08)">
+        <button onClick="{{ setDesktop }}" style="{{ cssDesktop }}">Desktop</button>
+        <button onClick="{{ setMobile }}" style="{{ cssMobile }}">Mobile</button>
+      </div>
+      <div style="display:flex;background:#17171F;border-radius:9px;padding:3px;border:1px solid rgba(255,255,255,.08)">
+        <button onClick="{{ setPT }}" style="{{ cssPT }}">PT</button>
+        <button onClick="{{ setEN }}" style="{{ cssEN }}">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:center;padding:26px 20px 0">
+  <div style="{{ frameCss }}">
+
+  <!-- ââââââââââ LANDING ââââââââââ -->
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#0A0A0F;animation:dhFade .4s ease both">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 40px;position:relative;z-index:5">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:11px;height:11px;border-radius:50%;background:#FF3D71;box-shadow:0 0 18px #FF3D71"></div>
+        <span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:17px;letter-spacing:.04em">DRAMAHUB</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <button style="background:none;border:1px solid rgba(255,255,255,.22);color:#F5F3F7;font-family:Figtree;font-size:14px;font-weight:600;padding:9px 20px;border-radius:8px;cursor:pointer">{{ t.login }}</button>
+      </div>
+    </div>
+
+    <div style="position:relative;padding:70px 40px 90px;background:radial-gradient(120% 90% at 78% 10%,rgba(255,61,113,.28) 0%,rgba(10,10,15,0) 58%),linear-gradient(180deg,#121019 0%,#0A0A0F 100%);overflow:hidden">
+      <div style="position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px);background-size:100% 7px;pointer-events:none"></div>
+      <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:start">
+      <div style="position:relative;max-width:640px">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:100px;background:rgba(255,61,113,.14);border:1px solid rgba(255,61,113,.35);margin-bottom:26px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#FF3D71;animation:dhPulse 1.8s infinite"></span>
+          <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FFAFC6">{{ t.hotNow }}</span>
+        </div>
+        <h1 style="font-family:Unbounded,sans-serif;font-weight:800;font-size:56px;line-height:1.04;letter-spacing:-.02em;margin:0 0 20px;text-wrap:balance">{{ t.heroTitle }}</h1>
+        <p style="font-size:19px;line-height:1.55;color:#B6B2C4;margin:0 0 34px;max-width:520px;text-wrap:pretty">{{ t.heroSub }}</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+          <input placeholder="{{ t.emailPh }}" style="flex:1;min-width:260px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:16px 18px;color:#fff;font-family:Figtree;font-size:15px;outline:none" />
+          <button onClick="{{ goSignup }}" style="background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:16px 30px;border-radius:10px;cursor:pointer;box-shadow:0 10px 30px rgba(255,61,113,.34)" style-hover="background:#FF5C88">{{ t.ctaWatch }} â</button>
+        </div>
+        <p style="font-size:13px;color:#75718A;margin:0">{{ t.heroNote }}</p>
+      </div>
+
+      <div style="display:flex;gap:16px;transform:rotate(-7deg);opacity:.9;flex-shrink:0;margin-top:-20px" class="dh-hero-posters">
+        <sc-for list="{{ heroPosters }}" as="p" hint-placeholder-count="3">
+          <div style="width:172px;height:258px;border-radius:14px;border:1px solid rgba(255,255,255,.12);padding:14px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 30px 60px rgba(0,0,0,.6);background:{{ p.bg }};margin-top:{{ p.off }}">
+            <div style="font-family:Unbounded,sans-serif;font-size:13px;font-weight:700;line-height:1.25">{{ p.title }}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">{{ p.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+      </div>
+    </div>
+
+    <div style="padding:64px 40px;border-top:1px solid rgba(255,255,255,.07)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px">
+        <sc-for list="{{ perks }}" as="p" hint-placeholder-count="3">
+          <div style="background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px">
+            <div style="font-family:Unbounded,sans-serif;font-size:22px;color:#FF3D71;margin-bottom:16px">{{ p.n }}</div>
+            <div style="font-size:17px;font-weight:700;margin-bottom:8px;line-height:1.3">{{ p.title }}</div>
+            <div style="font-size:14px;color:#9A97A8;line-height:1.55">{{ p.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="padding:10px 40px 80px">
+      <h2 style="font-family:Unbounded,sans-serif;font-size:28px;font-weight:700;margin:0 0 26px">FAQ</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:840px">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+          <div style="background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden">
+            <button onClick="{{ f.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;padding:20px 22px;color:#F5F3F7;font-family:Figtree;font-size:16px;font-weight:600;text-align:left;cursor:pointer">
+              <span>{{ f.q }}</span>
+              <span style="color:#FF3D71;font-size:20px;flex-shrink:0">{{ f.sign }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 22px 20px;font-size:15px;line-height:1.6;color:#9A97A8;max-width:660px">{{ f.a }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ CADASTRO ââââââââââ -->
+  <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;min-height:760px;background:#0A0A0F;animation:dhFade .4s ease both">
+    <div style="padding:48px 56px;display:flex;flex-direction:column;min-width:0">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:54px">
+        <div style="width:11px;height:11px;border-radius:50%;background:#FF3D71"></div>
+        <span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:16px;letter-spacing:.04em">DRAMAHUB</span>
+      </div>
+      <div style="max-width:440px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="height:3px;flex:1;border-radius:2px;background:{{ s.bg }}"></div>
+          </sc-for>
+        </div>
+        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.step1 }}</div>
+        <h1 style="font-family:Unbounded,sans-serif;font-size:34px;font-weight:700;margin:0 0 10px;line-height:1.15">{{ t.signupTitle }}</h1>
+        <p style="font-size:15px;color:#9A97A8;margin:0 0 34px;line-height:1.55">{{ t.signupSub }}</p>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.fEmail }}</span>
+            <input placeholder="voce@email.com" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:15px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:13px;font-weight:600;color:#B6B2C4">CPF</span>
+            <input placeholder="000.000.000-00" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:15px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.fPass }}</span>
+            <input type="password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:15px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+            <span style="font-size:12px;color:#75718A">{{ t.passHint }}</span>
+          </label>
+          <button onClick="{{ goPlan }}" style="background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:16px;border-radius:10px;cursor:pointer;margin-top:8px">{{ t.continue }}</button>
+          <p style="font-size:12px;color:#6F6C7E;line-height:1.55;margin:0">{{ t.terms }}</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(200deg,#2A0F23 0%,#0E0A14 70%);border-left:1px solid rgba(255,255,255,.08);padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:26px">
+      <div style="font-family:Unbounded,sans-serif;font-size:20px;line-height:1.4;font-weight:600">{{ t.asideQuote }}</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ asideBullets }}" as="b" hint-placeholder-count="3">
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <span style="color:#FF3D71;font-weight:800;font-size:15px">â</span>
+            <span style="font-size:14px;color:#C4C0D0;line-height:1.5">{{ b }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ PLANO ââââââââââ -->
+  <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#0A0A0F;padding:48px 56px 70px;animation:dhFade .4s ease both">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:44px">
+      <div style="width:11px;height:11px;border-radius:50%;background:#FF3D71"></div>
+      <span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:16px;letter-spacing:.04em">DRAMAHUB</span>
+    </div>
+    <div style="max-width:900px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px">
+        <sc-for list="{{ steps2 }}" as="s" hint-placeholder-count="4">
+          <div style="height:3px;flex:1;border-radius:2px;background:{{ s.bg }}"></div>
+        </sc-for>
+      </div>
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.step2 }}</div>
+      <h1 style="font-family:Unbounded,sans-serif;font-size:34px;font-weight:700;margin:0 0 40px;line-height:1.15">{{ t.planTitle }}</h1>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;align-items:start">
+        <div style="background:linear-gradient(165deg,#1B1522 0%,#121019 100%);border:1px solid rgba(255,61,113,.3);border-radius:18px;padding:32px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;right:0;background:#FF3D71;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;border-radius:0 0 0 12px">{{ t.onlyPlan }}</div>
+          <div style="font-family:Unbounded,sans-serif;font-size:26px;font-weight:700;margin-bottom:6px">{{ t.planName }}</div>
+          <div style="font-size:14px;color:#9A97A8;margin-bottom:26px">{{ t.planTag }}</div>
+          <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.09)">
+            <sc-for list="{{ planIncludes }}" as="i" hint-placeholder-count="4">
+              <div style="display:flex;gap:11px;align-items:center">
+                <span style="color:#FF3D71;font-weight:800;font-size:14px">â</span>
+                <span style="font-size:15px;color:#D6D2E0">{{ i }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding-top:26px">
+            <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#75718A;margin-bottom:8px">{{ t.extraScreens }}</div>
+            <div style="font-size:14px;color:#9A97A8;line-height:1.55;margin-bottom:20px">{{ t.extraHelp }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px">
+              <div>
+                <div style="font-size:17px;font-weight:700">{{ screensLabel }}</div>
+                <div style="font-size:13px;color:#9A97A8;margin-top:3px">{{ extrasLabel }}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px">
+                <button onClick="{{ decExtra }}" style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:22px;font-weight:600;cursor:pointer;line-height:1">â</button>
+                <span style="font-family:Unbounded,sans-serif;font-size:22px;font-weight:700;min-width:26px;text-align:center">{{ totalScreens }}</span>
+                <button onClick="{{ incExtra }}" style="width:40px;height:40px;border-radius:10px;background:#FF3D71;border:none;color:#fff;font-size:22px;font-weight:600;cursor:pointer;line-height:1">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px;position:sticky;top:90px">
+          <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:20px">{{ t.summary }}</div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;margin-bottom:12px">
+            <span style="color:#C4C0D0">{{ t.planName }}</span><span style="font-weight:600">{{ basePriceF }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;margin-bottom:20px">
+            <span style="color:#C4C0D0">{{ extrasLine }}</span><span style="font-weight:600">{{ extrasPriceF }}</span>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,.1);margin-bottom:20px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+            <span style="font-size:14px;color:#9A97A8">{{ t.perMonth }}</span>
+            <span style="font-family:Unbounded,sans-serif;font-size:30px;font-weight:800;color:#FF3D71">{{ totalF }}</span>
+          </div>
+          <button onClick="{{ goCheckout }}" style="width:100%;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:16px;border-radius:10px;cursor:pointer">{{ t.goPay }}</button>
+          <p style="font-size:12px;color:#6F6C7E;text-align:center;margin:14px 0 0;line-height:1.5">{{ t.cancelAny }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ CHECKOUT ââââââââââ -->
+  <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#0A0A0F;padding:48px 56px 70px;animation:dhFade .4s ease both">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:44px">
+      <div style="width:11px;height:11px;border-radius:50%;background:#FF3D71"></div>
+      <span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:16px;letter-spacing:.04em">DRAMAHUB</span>
+    </div>
+    <div style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start">
+      <div>
+        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.step3 }}</div>
+        <h1 style="font-family:Unbounded,sans-serif;font-size:32px;font-weight:700;margin:0 0 32px">{{ t.checkoutTitle }}</h1>
+
+        <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px;margin-bottom:20px">
+          <div style="font-size:15px;font-weight:700;margin-bottom:20px">{{ t.personalData }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+            <label style="display:flex;flex-direction:column;gap:7px;grid-column:1/-1">
+              <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.fName }}</span>
+              <input placeholder="Ana Lima" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:13px;font-weight:600;color:#B6B2C4">CPF</span>
+              <input placeholder="000.000.000-00" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.fEmail }}</span>
+              <input placeholder="voce@email.com" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+            </label>
+          </div>
+        </div>
+
+        <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:16px;overflow:hidden">
+          <div style="display:flex;border-bottom:1px solid rgba(255,255,255,.09)">
+            <button onClick="{{ setPix }}" style="{{ cssPixTab }}">PIX</button>
+            <button onClick="{{ setCard }}" style="{{ cssCardTab }}">{{ t.card }}</button>
+          </div>
+          <sc-if value="{{ isPix }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px;align-items:center">
+              <div style="width:190px;height:190px;border-radius:14px;background:#fff;padding:12px;display:flex;align-items:center;justify-content:center">
+                <div style="width:100%;height:100%;background-image:repeating-conic-gradient(#0A0A0F 0% 25%,#fff 0% 50%);background-size:15px 15px;border-radius:4px"></div>
+              </div>
+              <div>
+                <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,61,113,.12);border:1px solid rgba(255,61,113,.3);border-radius:8px;padding:7px 12px;margin-bottom:16px">
+                  <span style="width:6px;height:6px;border-radius:50%;background:#FF3D71;animation:dhPulse 1.4s infinite"></span>
+                  <span style="font-size:13px;font-weight:700;color:#FFAFC6">{{ t.pixWaiting }} Â· 09:41</span>
+                </div>
+                <div style="font-size:15px;font-weight:700;margin-bottom:8px">{{ t.pixTitle }}</div>
+                <p style="font-size:14px;color:#9A97A8;line-height:1.55;margin:0 0 18px">{{ t.pixBody }}</p>
+                <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px">
+                  <span style="font-family:ui-monospace,monospace;font-size:12px;color:#9A97A8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">00020126580014br.gov.bcb.pix0136a1f3â¦</span>
+                  <button style="background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:700;font-size:13px;padding:9px 16px;border-radius:8px;cursor:pointer;white-space:nowrap">{{ t.copyPaste }}</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isCard }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+              <label style="display:flex;flex-direction:column;gap:7px;grid-column:1/-1">
+                <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.cardNum }}</span>
+                <input placeholder="0000 0000 0000 0000" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.valid }}</span>
+                <input placeholder="MM/AA" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-size:13px;font-weight:600;color:#B6B2C4">CVV</span>
+                <input placeholder="123" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px;grid-column:1/-1">
+                <span style="font-size:13px;font-weight:600;color:#B6B2C4">{{ t.holder }}</span>
+                <input placeholder="ANA C LIMA" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;color:#fff;font-family:Figtree;font-size:15px;outline:none;min-width:0;width:100%" />
+              </label>
+              <label style="display:flex;gap:10px;align-items:center;grid-column:1/-1;font-size:14px;color:#C4C0D0;cursor:pointer">
+                <span style="width:18px;height:18px;border-radius:5px;background:#FF3D71;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:800">â</span>
+                {{ t.saveCard }}
+              </label>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px;position:sticky;top:90px">
+        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:20px">{{ t.summary }}</div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:11px"><span style="color:#C4C0D0">{{ t.planName }}</span><span style="font-weight:600">{{ basePriceF }}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:18px"><span style="color:#C4C0D0">{{ extrasLine }}</span><span style="font-weight:600">{{ extrasPriceF }}</span></div>
+        <div style="height:1px;background:rgba(255,255,255,.1);margin-bottom:18px"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px">
+          <span style="font-size:13px;color:#9A97A8">{{ t.recurring }}</span>
+          <span style="font-family:Unbounded,sans-serif;font-size:26px;font-weight:800;color:#FF3D71">{{ totalF }}</span>
+        </div>
+        <button onClick="{{ goOnboarding }}" style="width:100%;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:15px;padding:15px;border-radius:10px;cursor:pointer">{{ t.confirm }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ ONBOARDING ââââââââââ -->
+  <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+  <div style="background:radial-gradient(90% 60% at 50% 0%,rgba(255,61,113,.16) 0%,rgba(10,10,15,0) 60%),#0A0A0F;padding:56px 56px 70px;animation:dhFade .4s ease both;min-height:760px">
+    <div style="max-width:880px;margin:0 auto;text-align:center">
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#FF7FA2;font-weight:700;margin-bottom:14px">{{ t.welcome }}</div>
+      <h1 style="font-family:Unbounded,sans-serif;font-size:36px;font-weight:700;margin:0 0 12px;line-height:1.15">{{ t.onbTitle }}</h1>
+      <p style="font-size:16px;color:#9A97A8;margin:0 0 40px">{{ t.onbSub }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:44px">
+        <sc-for list="{{ genres }}" as="g" hint-placeholder-count="12">
+          <button onClick="{{ g.toggle }}" style="{{ g.css }}">{{ g.label }}</button>
+        </sc-for>
+      </div>
+      <div style="text-align:left;margin-bottom:36px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:16px">{{ t.pickFav }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px">
+          <sc-for list="{{ onbPosters }}" as="p" hint-placeholder-count="10">
+            <button onClick="{{ p.toggle }}" style="{{ p.css }}">
+              <div style="height:150px;background:{{ p.bg }};display:flex;align-items:flex-end;padding:10px"><span style="font-family:Unbounded,sans-serif;font-size:11px;font-weight:700;line-height:1.25;text-align:left">{{ p.title }}</span></div>
+              <div style="padding:8px 10px;font-size:11px;color:#9A97A8;text-align:left">{{ p.meta }}</div>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <button onClick="{{ goHome }}" style="background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:16px 44px;border-radius:10px;cursor:pointer">{{ t.finish }} â</button>
+      <div style="margin-top:14px"><button onClick="{{ goHome }}" style="background:none;border:none;color:#75718A;font-family:Figtree;font-size:14px;cursor:pointer;text-decoration:underline">{{ t.skip }}</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ APP SHELL (desktop) ââââââââââ -->
+  <sc-if value="{{ isAppDesktop }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#0A0A0F;position:relative;animation:dhFade .4s ease both">
+    <div style="position:sticky;top:62px;z-index:40;display:flex;align-items:center;gap:28px;padding:16px 36px;background:rgba(10,10,15,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#FF3D71"></div>
+        <span style="font-family:Unbounded,sans-serif;font-weight:800;font-size:15px;letter-spacing:.04em">DRAMAHUB</span>
+      </div>
+      <div style="display:flex;gap:22px;align-items:center;flex-shrink:0">
+        <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="5">
+          <button onClick="{{ n.go }}" style="{{ n.css }}" class="{{ n.cls }}">{{ n.label }}</button>
+        </sc-for>
+      </div>
+      <div style="flex:1;min-width:12px"></div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px 14px;flex:0 1 230px;min-width:44px;overflow:hidden">
+        <span style="color:#75718A;font-size:14px;flex-shrink:0">â</span>
+        <span style="font-size:13px;color:#75718A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.search }}</span>
+      </div>
+      <button onClick="{{ goDevices }}" title="Dispositivos" style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#C4C0D0;font-size:15px;cursor:pointer">ð¥</button>
+      <button style="width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#C4C0D0;font-size:15px;cursor:pointer;position:relative">ð</button>
+      <button onClick="{{ goAccount }}" style="width:36px;height:36px;border-radius:50%;border:2px solid #FF3D71;background:linear-gradient(135deg,#FF3D71,#7B2C4C);color:#fff;font-family:Unbounded,sans-serif;font-size:13px;font-weight:700;cursor:pointer">A</button>
+    </div>
+
+    <!-- HOME -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="position:relative;height:520px;display:flex;align-items:flex-end;padding:0 36px 48px;background:linear-gradient(90deg,rgba(10,10,15,.96) 0%,rgba(10,10,15,.7) 42%,rgba(10,10,15,.15) 100%),linear-gradient(200deg,#4A1430 0%,#1A0E1C 60%,#0A0A0F 100%)">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,#0A0A0F 0%,transparent 34%)"></div>
+        <div style="position:relative;max-width:560px">
+          <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+            <span style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#FF3D71;padding:5px 10px;border-radius:5px">{{ t.newEp }}</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.12);padding:5px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.16)">ð°ð· {{ t.korea }}</span>
+          </div>
+          <h1 style="font-family:Unbounded,sans-serif;font-size:52px;font-weight:800;line-height:1.02;margin:0 0 14px;letter-spacing:-.02em">{{ hero.title }}</h1>
+          <div style="font-size:14px;color:#B6B2C4;margin-bottom:14px;font-weight:600">{{ hero.meta }}</div>
+          <p style="font-size:16px;line-height:1.6;color:#C4C0D0;margin:0 0 28px;text-wrap:pretty">{{ hero.synopsis }}</p>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button onClick="{{ goPlayer }}" style="display:flex;align-items:center;gap:10px;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:15px 28px;border-radius:10px;cursor:pointer">â¶ {{ t.watchEp1 }}</button>
+            <button style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:Figtree;font-weight:700;font-size:16px;padding:15px 24px;border-radius:10px;cursor:pointer">+ {{ t.myList }}</button>
+            <button onClick="{{ goHub }}" style="background:none;border:none;color:#C4C0D0;font-family:Figtree;font-weight:600;font-size:15px;cursor:pointer;text-decoration:underline">{{ t.moreInfo }}</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 36px 60px;display:flex;flex-direction:column;gap:42px;margin-top:-30px;position:relative">
+        <div>
+          <div style="font-family:Unbounded,sans-serif;font-size:19px;font-weight:600;margin-bottom:16px">{{ t.continueWatching }}</div>
+          <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:10px">
+            <sc-for list="{{ continueRow }}" as="c" hint-placeholder-count="5">
+              <button onClick="{{ goPlayer }}" style="flex:0 0 260px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;cursor:pointer;padding:0;text-align:left;color:#F5F3F7" style-hover="border-color:rgba(255,61,113,.5)">
+                <div style="height:146px;background:{{ c.bg }};position:relative;display:flex;align-items:center;justify-content:center">
+                  <div style="width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.5);border:1.5px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:15px">â¶</div>
+                  <div style="position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.55)"><div style="height:100%;background:#FF3D71;width:{{ c.pct }}"></div></div>
+                </div>
+                <div style="padding:12px 14px">
+                  <div style="font-size:14px;font-weight:700;margin-bottom:3px">{{ c.title }}</div>
+                  <div style="font-size:12px;color:#9A97A8">{{ c.sub }}</div>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:Unbounded,sans-serif;font-size:19px;font-weight:600;margin-bottom:16px">{{ t.top10 }}</div>
+          <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px">
+            <sc-for list="{{ topRow }}" as="d" hint-placeholder-count="8">
+              <button onClick="{{ goHub }}" style="flex:0 0 auto;display:flex;align-items:flex-end;background:none;border:none;cursor:pointer;padding:0;color:#F5F3F7">
+                <span style="font-family:Unbounded,sans-serif;font-size:86px;font-weight:800;line-height:.78;color:#0A0A0F;-webkit-text-stroke:2px rgba(255,255,255,.34);margin-right:-14px;position:relative;z-index:2">{{ d.n }}</span>
+                <span style="display:block;width:128px;height:186px;border-radius:10px;background:{{ d.bg }};border:1px solid rgba(255,255,255,.1);padding:10px;display:flex;align-items:flex-end;font-family:Unbounded,sans-serif;font-size:11px;font-weight:700;line-height:1.25;text-align:left">{{ d.title }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;align-items:center;gap:18px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="font-family:Unbounded,sans-serif;font-size:19px;font-weight:600">{{ t.weekly }}</div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ weekDays }}" as="w" hint-placeholder-count="4">
+                <button onClick="{{ w.pick }}" style="{{ w.css }}">{{ w.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:10px">
+            <sc-for list="{{ weekRow }}" as="d" hint-placeholder-count="6">
+              <button onClick="{{ goHub }}" style="flex:0 0 180px;background:none;border:none;padding:0;cursor:pointer;color:#F5F3F7;text-align:left">
+                <div style="height:250px;border-radius:12px;background:{{ d.bg }};border:1px solid rgba(255,255,255,.1);padding:12px;display:flex;flex-direction:column;justify-content:space-between">
+                  <span style="align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:5px">{{ d.badge }}</span>
+                  <span style="font-family:Unbounded,sans-serif;font-size:13px;font-weight:700;line-height:1.25">{{ d.title }}</span>
+                </div>
+                <div style="font-size:12px;color:#9A97A8;margin-top:8px">{{ d.meta }}</div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:Unbounded,sans-serif;font-size:19px;font-weight:600;margin-bottom:16px">{{ t.osts }}</div>
+          <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:10px">
+            <sc-for list="{{ ostRow }}" as="o" hint-placeholder-count="6">
+              <div style="flex:0 0 250px;display:flex;align-items:center;gap:13px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px">
+                <div style="width:52px;height:52px;border-radius:50%;background:{{ o.bg }};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px">â¶</div>
+                <div style="min-width:0">
+                  <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ o.song }}</div>
+                  <div style="font-size:12px;color:#9A97A8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ o.from }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- DRAMA HUB -->
+    <sc-if value="{{ isHub }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="position:relative;padding:56px 36px 40px;background:linear-gradient(90deg,rgba(10,10,15,.95) 0%,rgba(10,10,15,.6) 55%,rgba(10,10,15,.2) 100%),linear-gradient(210deg,#3A1030 0%,#150C1A 60%,#0A0A0F 100%)">
+        <div style="display:flex;gap:32px;align-items:flex-end">
+          <div style="width:210px;height:312px;border-radius:14px;background:linear-gradient(160deg,#FF3D71 0%,#5B1B3A 55%,#1A0E1C 100%);border:1px solid rgba(255,255,255,.16);flex-shrink:0;padding:16px;display:flex;align-items:flex-end;box-shadow:0 24px 60px rgba(0,0,0,.55)">
+            <span style="font-family:Unbounded,sans-serif;font-size:16px;font-weight:700;line-height:1.2">{{ hero.title }}</span>
+          </div>
+          <div style="flex:1;min-width:0">
+            <h1 style="font-family:Unbounded,sans-serif;font-size:40px;font-weight:800;margin:0 0 12px;line-height:1.06">{{ hero.title }}</h1>
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;font-size:14px;color:#B6B2C4;font-weight:600">
+              <span style="color:#FF3D71;font-weight:800">â 9,1</span>
+              <span>2025</span><span>Â·</span><span>16 {{ t.episodes }}</span><span>Â·</span><span>tvN</span><span>Â·</span>
+              <span style="border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:1px 6px;font-size:12px">14</span>
+              <span style="background:rgba(255,255,255,.1);border-radius:5px;padding:3px 9px;font-size:12px">1080p</span>
+            </div>
+            <p style="font-size:16px;line-height:1.6;color:#C4C0D0;margin:0 0 24px;max-width:660px;text-wrap:pretty">{{ hero.synopsis }}</p>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+              <button onClick="{{ goPlayer }}" style="display:flex;align-items:center;gap:10px;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:16px;padding:15px 28px;border-radius:10px;cursor:pointer">â¶ {{ t.continueS1E4 }}</button>
+              <button onClick="{{ toggleFav }}" style="{{ cssFav }}">{{ favLabel }}</button>
+              <button style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:16px;cursor:pointer">â</button>
+            </div>
+            <div style="margin-top:16px;font-size:13px;color:#75718A">{{ t.progressNote }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:0 36px 60px">
+        <div style="display:flex;gap:28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:26px">
+          <sc-for list="{{ hubTabs }}" as="tb" hint-placeholder-count="3">
+            <button onClick="{{ tb.pick }}" style="{{ tb.css }}">{{ tb.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ tabEps }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ episodes }}" as="e" hint-placeholder-count="5">
+              <button onClick="{{ goPlayer }}" style="display:flex;gap:18px;align-items:center;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;cursor:pointer;text-align:left;color:#F5F3F7" style-hover="border-color:rgba(255,61,113,.45)">
+                <span style="font-family:Unbounded,sans-serif;font-size:20px;font-weight:700;color:#4C4859;width:34px;text-align:center;flex-shrink:0">{{ e.n }}</span>
+                <span style="width:170px;height:96px;border-radius:9px;background:{{ e.bg }};flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;font-size:15px">â¶
+                  <span style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.5)"><span style="display:block;height:100%;background:#FF3D71;width:{{ e.pct }}"></span></span>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-bottom:6px">
+                    <span style="font-size:16px;font-weight:700">{{ e.title }}</span>
+                    <span style="font-size:13px;color:#75718A;flex-shrink:0">{{ e.dur }}</span>
+                  </span>
+                  <span style="display:block;font-size:14px;color:#9A97A8;line-height:1.5">{{ e.desc }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabCast }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:24px">
+            <sc-for list="{{ cast }}" as="c" hint-placeholder-count="6">
+              <div style="text-align:center">
+                <div style="width:100px;height:100px;border-radius:50%;background:{{ c.bg }};margin:0 auto 12px;border:1px solid rgba(255,255,255,.12)"></div>
+                <div style="font-size:14px;font-weight:700;margin-bottom:3px">{{ c.actor }}</div>
+                <div style="font-size:13px;color:#9A97A8">{{ c.role }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabOst }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:8px;max-width:720px">
+            <sc-for list="{{ ostList }}" as="o" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 16px">
+                <button style="width:40px;height:40px;border-radius:50%;background:#FF3D71;border:none;color:#fff;font-size:13px;cursor:pointer;flex-shrink:0">â¶</button>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:15px;font-weight:700">{{ o.song }}</div>
+                  <div style="font-size:13px;color:#9A97A8">{{ o.artist }}</div>
+                </div>
+                <div style="font-size:13px;color:#75718A">{{ o.dur }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- CONTA -->
+    <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:44px 36px 70px;max-width:1000px;margin:0 auto">
+      <h1 style="font-family:Unbounded,sans-serif;font-size:32px;font-weight:700;margin:0 0 32px">{{ t.account }}</h1>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:start">
+        <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px">
+          <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:22px">{{ t.subscriber }}</div>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+            <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF3D71,#7B2C4C);display:flex;align-items:center;justify-content:center;font-family:Unbounded,sans-serif;font-size:20px;font-weight:700">A</div>
+            <div>
+              <div style="font-size:18px;font-weight:700">Ana Lima</div>
+              <div style="font-size:14px;color:#9A97A8">ana.lima@email.com</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:#9A97A8">CPF</span><span style="font-weight:600">123.***.***-09</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:#9A97A8">{{ t.password }}</span><a href="#" style="font-weight:600">{{ t.change }}</a></div>
+          </div>
+        </div>
+
+        <div style="background:#13131B;border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:26px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+            <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#75718A;font-weight:700">{{ t.currentPlan }}</span>
+            <span style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(61,220,151,.14);color:#3DDC97;border:1px solid rgba(61,220,151,.3);padding:4px 10px;border-radius:100px">{{ t.active }}</span>
+          </div>
+          <div style="font-family:Unbounded,sans-serif;font-size:20px;font-weight:700;margin-bottom:6px">{{ t.planName }}</div>
+          <div style="font-size:14px;color:#9A97A8;margin-bottom:22px">{{ t.renews }}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:18px">
+            <div>
+              <div style="font-size:15px;font-weight:700">{{ screensWidget }}</div>
+              <div style="font-size:13px;color:#9A97A8;margin-top:2px">{{ totalF }} / {{ t.month }}</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ screenDots }}" as="d" hint-placeholder-count="3">
+                <span style="width:26px;height:20px;border-radius:4px;border:1.5px solid {{ d.color }};background:{{ d.fill }}"></span>
+              </sc-for>
+            </div>
+          </div>
+          <button onClick="{{ goPlan }}" style="width:100%;background:rgba(255,61,113,.14);border:1px solid rgba(255,61,113,.4);color:#FF7FA2;font-family:Figtree;font-weight:700;font-size:15px;padding:14px;border-radius:10px;cursor:pointer">{{ t.manageScreens }}</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- DISPOSITIVOS -->
+    <sc-if value="{{ isDevices }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:44px 36px 70px;max-width:820px;margin:0 auto">
+      <h1 style="font-family:Unbounded,sans-serif;font-size:32px;font-weight:700;margin:0 0 8px">{{ t.devices }}</h1>
+      <p style="font-size:15px;color:#9A97A8;margin:0 0 32px">{{ t.devicesSub }}</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
+        <sc-for list="{{ devices }}" as="d" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:16px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 20px">
+            <div style="width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">{{ d.icon }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:15px;font-weight:700;display:flex;align-items:center;gap:9px">{{ d.name }}<span style="{{ d.badgeCss }}">{{ d.badge }}</span></div>
+              <div style="font-size:13px;color:#9A97A8;margin-top:3px">{{ d.meta }}</div>
+            </div>
+            <button style="background:none;border:1px solid rgba(255,255,255,.18);color:#C4C0D0;font-family:Figtree;font-size:13px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer">{{ t.disconnect }}</button>
+          </div>
+        </sc-for>
+      </div>
+      <button style="background:rgba(255,61,113,.1);border:1px solid rgba(255,61,113,.4);color:#FF7FA2;font-family:Figtree;font-weight:700;font-size:15px;padding:14px 24px;border-radius:10px;cursor:pointer">{{ t.logoutAll }}</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showLimit }}" hint-placeholder-val="{{ false }}">
+      <div style="position:fixed;inset:0;z-index:120;background:rgba(5,5,9,.82);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px">
+        <div style="width:440px;max-width:100%;background:#14141D;border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:36px;text-align:center;box-shadow:0 40px 90px rgba(0,0,0,.6);animation:dhFade .25s ease both">
+          <div style="display:flex;gap:8px;justify-content:center;margin-bottom:24px">
+            <sc-for list="{{ limitDots }}" as="d" hint-placeholder-count="3">
+              <div style="width:56px;height:40px;border-radius:7px;border:2px solid {{ d.color }};background:{{ d.fill }};display:flex;align-items:center;justify-content:center;font-size:15px;color:{{ d.color }}">{{ d.icon }}</div>
+            </sc-for>
+          </div>
+          <h2 style="font-family:Unbounded,sans-serif;font-size:23px;font-weight:700;margin:0 0 12px;line-height:1.25">{{ t.limitTitle }}</h2>
+          <p style="font-size:15px;color:#9A97A8;line-height:1.6;margin:0 0 28px">{{ t.limitBody }}</p>
+          <button onClick="{{ addScreenFromModal }}" style="width:100%;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:15px;padding:15px;border-radius:10px;cursor:pointer;margin-bottom:10px">{{ t.limitCta }}</button>
+          <button onClick="{{ closeLimit }}" style="width:100%;background:none;border:1px solid rgba(255,255,255,.16);color:#C4C0D0;font-family:Figtree;font-weight:600;font-size:15px;padding:14px;border-radius:10px;cursor:pointer">{{ t.gotIt }}</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ PLAYER ââââââââââ -->
+  <sc-if value="{{ isPlayer }}" hint-placeholder-val="{{ false }}">
+  <div style="position:relative;height:760px;background:linear-gradient(165deg,#2A1020 0%,#0C0812 55%,#050508 100%);overflow:hidden;animation:dhFade .4s ease both">
+    <div style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 40%,rgba(255,61,113,.14) 0%,transparent 70%)"></div>
+
+    <div style="position:absolute;top:0;left:0;right:0;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(0,0,0,.75),transparent)">
+      <button onClick="{{ goHub }}" style="display:flex;align-items:center;gap:11px;background:none;border:none;color:#fff;font-family:Figtree;font-size:16px;font-weight:600;cursor:pointer">
+        <span style="font-size:19px">â</span>
+        <span>{{ hero.title }} Â· <span style="color:#B6B2C4">S1:E3</span></span>
+      </button>
+      <button onClick="{{ openSettings }}" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;font-family:Figtree;font-size:14px;font-weight:600;padding:9px 16px;border-radius:9px;cursor:pointer">â {{ t.settings }}</button>
+    </div>
+
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:56px">
+      <button style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;cursor:pointer">âª10</button>
+      <button onClick="{{ togglePlay }}" style="width:92px;height:92px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.5);backdrop-filter:blur(8px);color:#fff;font-size:30px;cursor:pointer;display:flex;align-items:center;justify-content:center">{{ playIcon }}</button>
+      <button style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;cursor:pointer">10â©</button>
+    </div>
+
+    <sc-if value="{{ showGlossary }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;top:92px;right:28px;width:330px;background:rgba(20,20,29,.96);border:1px solid rgba(255,61,113,.4);border-radius:16px;padding:22px;backdrop-filter:blur(14px);box-shadow:0 24px 60px rgba(0,0,0,.6);animation:dhFade .25s ease both">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px">
+          <div>
+            <div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#FF7FA2;margin-bottom:7px">{{ t.glossary }}</div>
+            <div style="font-family:Unbounded,sans-serif;font-size:19px;font-weight:700">Chaebol <span style="font-size:13px;color:#75718A;font-family:Figtree">ì¬ë²</span></div>
+          </div>
+          <button onClick="{{ closeGlossary }}" style="background:none;border:none;color:#75718A;font-size:18px;cursor:pointer;line-height:1">Ã</button>
+        </div>
+        <p style="font-size:14px;line-height:1.6;color:#C4C0D0;margin:0">{{ t.chaebol }}</p>
+      </div>
+    </sc-if>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;padding:28px;background:linear-gradient(0deg,rgba(0,0,0,.88) 20%,transparent)">
+      <div style="text-align:center;margin-bottom:26px">
+        <span style="display:inline-block;background:rgba(0,0,0,.6);border-radius:8px;padding:10px 20px;font-size:21px;font-weight:600;line-height:1.4;max-width:720px">{{ t.subtitle1 }}</span>
+        <div style="margin-top:8px"><span style="display:inline-block;background:rgba(0,0,0,.45);border-radius:8px;padding:7px 18px;font-size:16px;color:#B6B2C4">{{ t.subtitle2 }}</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+        <span style="font-size:13px;color:#C4C0D0;font-variant-numeric:tabular-nums;font-weight:600">00:24:15</span>
+        <div style="flex:1;position:relative;height:5px;border-radius:3px;background:rgba(255,255,255,.22)">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:34%;background:#FF3D71;border-radius:3px"></div>
+          <div style="position:absolute;left:34%;top:50%;width:15px;height:15px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(0,0,0,.5)"></div>
+          <sc-for list="{{ markers }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.open }}" title="{{ m.label }}" style="position:absolute;top:50%;transform:translate(-50%,-50%);left:{{ m.left }};width:11px;height:11px;border-radius:50%;background:#FFD166;border:2px solid #0A0A0F;cursor:pointer;padding:0"></button>
+          </sc-for>
+        </div>
+        <span style="font-size:13px;color:#C4C0D0;font-variant-numeric:tabular-nums;font-weight:600">01:10:00</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:20px">
+          <button onClick="{{ togglePlay }}" style="background:none;border:none;color:#fff;font-size:19px;cursor:pointer">{{ playIcon }}</button>
+          <button style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer">â­</button>
+          <button style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer">ð</button>
+          <span style="font-size:13px;color:#9A97A8">{{ t.nextEp }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button style="background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;font-family:Figtree;font-size:13px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer">{{ t.skipIntro }}</button>
+          <button onClick="{{ openSettings }}" style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer">ð¬</button>
+          <button style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer">ð¥</button>
+          <button style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer">â¶</button>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ showSettings }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:60;background:rgba(5,5,9,.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px">
+        <div style="width:560px;max-width:100%;background:#14141D;border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:32px;box-shadow:0 40px 90px rgba(0,0,0,.6);animation:dhFade .25s ease both">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px">
+            <h2 style="font-family:Unbounded,sans-serif;font-size:21px;font-weight:700;margin:0">{{ t.mediaSettings }}</h2>
+            <button onClick="{{ closeSettings }}" style="background:none;border:none;color:#75718A;font-size:22px;cursor:pointer;line-height:1">Ã</button>
+          </div>
+          <div style="margin-bottom:26px">
+            <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.subsLang }}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ subLangs }}" as="s" hint-placeholder-count="3">
+                <button onClick="{{ s.pick }}" style="{{ s.css }}">{{ s.label }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ toggleDual }}" style="{{ cssDual }}">
+              <span style="{{ cssDualKnob }}"></span>
+              <span style="text-align:left"><span style="display:block;font-size:14px;font-weight:700">{{ t.dualSubs }}</span><span style="display:block;font-size:12px;color:#9A97A8;margin-top:2px">{{ t.dualSubsHint }}</span></span>
+            </button>
+          </div>
+          <div style="margin-bottom:26px">
+            <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.quality }}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ qualities }}" as="q" hint-placeholder-count="3">
+                <button onClick="{{ q.pick }}" style="{{ q.css }}">{{ q.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:12px">{{ t.shortcuts }}</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button style="flex:1;min-width:160px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#F5F3F7;font-family:Figtree;font-size:14px;font-weight:600;padding:14px;border-radius:10px;cursor:pointer">{{ t.skipIntro }}</button>
+              <button style="flex:1;min-width:160px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#F5F3F7;font-family:Figtree;font-size:14px;font-weight:600;padding:14px;border-radius:10px;cursor:pointer">{{ t.nextEpBtn }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ââââââââââ MOBILE ââââââââââ -->
+  <sc-if value="{{ isMobileView }}" hint-placeholder-val="{{ false }}">
+  <div style="position:relative;width:390px;height:844px;border-radius:44px;border:9px solid #1B1B24;background:#0A0A0F;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.65);animation:dhFade .4s ease both">
+    <div style="position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;font-weight:700;z-index:30;color:#fff">
+      <span>9:41</span><span style="letter-spacing:2px">âªâªâª á¯¤ â®</span>
+    </div>
+
+    <div style="position:absolute;inset:0;overflow-y:auto;padding-bottom:84px">
+      <sc-if value="{{ mHome }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="height:480px;position:relative;padding:0 18px 24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(0deg,#0A0A0F 4%,rgba(10,10,15,.25) 60%),linear-gradient(200deg,#4A1430 0%,#1A0E1C 70%)">
+            <div style="display:flex;gap:7px;margin-bottom:12px">
+              <span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#FF3D71;padding:4px 8px;border-radius:4px">{{ t.newEp }}</span>
+              <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.14);padding:4px 8px;border-radius:4px">ð°ð·</span>
+            </div>
+            <h1 style="font-family:Unbounded,sans-serif;font-size:29px;font-weight:800;line-height:1.05;margin:0 0 10px">{{ hero.title }}</h1>
+            <div style="font-size:12px;color:#B6B2C4;margin-bottom:16px;font-weight:600">{{ hero.meta }}</div>
+            <div style="display:flex;gap:9px">
+              <button onClick="{{ goPlayer }}" style="flex:1;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:15px;padding:14px;border-radius:10px;cursor:pointer">â¶ {{ t.watch }}</button>
+              <button onClick="{{ goHub }}" style="flex:1;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:Figtree;font-weight:700;font-size:15px;padding:14px;border-radius:10px;cursor:pointer">+ {{ t.list }}</button>
+            </div>
+          </div>
+          <div style="padding:24px 18px 0;display:flex;flex-direction:column;gap:28px">
+            <div>
+              <div style="font-family:Unbounded,sans-serif;font-size:15px;font-weight:600;margin-bottom:12px">{{ t.continueWatching }}</div>
+              <div style="display:flex;gap:11px;overflow-x:auto;padding-bottom:8px">
+                <sc-for list="{{ continueRow }}" as="c" hint-placeholder-count="4">
+                  <button onClick="{{ goPlayer }}" style="flex:0 0 176px;background:none;border:none;padding:0;cursor:pointer;color:#F5F3F7;text-align:left">
+                    <div style="height:100px;border-radius:10px;background:{{ c.bg }};position:relative;display:flex;align-items:center;justify-content:center;font-size:14px">â¶
+                      <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.5)"><div style="height:100%;background:#FF3D71;width:{{ c.pct }}"></div></div>
+                    </div>
+                    <div style="font-size:13px;font-weight:700;margin-top:8px">{{ c.title }}</div>
+                    <div style="font-size:11px;color:#9A97A8;margin-top:2px">{{ c.sub }}</div>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:Unbounded,sans-serif;font-size:15px;font-weight:600;margin-bottom:12px">{{ t.top10 }}</div>
+              <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px">
+                <sc-for list="{{ topRow }}" as="d" hint-placeholder-count="6">
+                  <button onClick="{{ goHub }}" style="flex:0 0 auto;display:flex;align-items:flex-end;background:none;border:none;padding:0;cursor:pointer;color:#F5F3F7">
+                    <span style="font-family:Unbounded,sans-serif;font-size:58px;font-weight:800;line-height:.78;color:#0A0A0F;-webkit-text-stroke:1.5px rgba(255,255,255,.34);margin-right:-9px;position:relative;z-index:2">{{ d.n }}</span>
+                    <span style="display:block;width:92px;height:134px;border-radius:8px;background:{{ d.bg }};border:1px solid rgba(255,255,255,.1);padding:8px;display:flex;align-items:flex-end;font-family:Unbounded,sans-serif;font-size:9px;font-weight:700;line-height:1.25;text-align:left">{{ d.title }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:Unbounded,sans-serif;font-size:15px;font-weight:600;margin-bottom:12px">{{ t.osts }}</div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ ostRow }}" as="o" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:12px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:10px">
+                    <div style="width:46px;height:46px;border-radius:50%;background:{{ o.bg }};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px">â¶</div>
+                    <div style="min-width:0"><div style="font-size:13px;font-weight:700">{{ o.song }}</div><div style="font-size:11px;color:#9A97A8">{{ o.from }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mHub }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="height:400px;position:relative;padding:0 18px 22px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(0deg,#0A0A0F 5%,rgba(10,10,15,.3) 60%),linear-gradient(210deg,#3A1030 0%,#150C1A 70%)">
+            <button onClick="{{ goHome }}" style="position:absolute;top:58px;left:18px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.5);border:none;color:#fff;font-size:16px;cursor:pointer">â</button>
+            <h1 style="font-family:Unbounded,sans-serif;font-size:26px;font-weight:800;line-height:1.06;margin:0 0 10px">{{ hero.title }}</h1>
+            <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-size:12px;color:#B6B2C4;font-weight:600;margin-bottom:16px">
+              <span style="color:#FF3D71;font-weight:800">â 9,1</span><span>2025</span><span>Â·</span><span>16 {{ t.episodes }}</span><span>Â·</span><span>tvN</span>
+            </div>
+            <button onClick="{{ goPlayer }}" style="background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:15px;padding:14px;border-radius:10px;cursor:pointer;margin-bottom:9px">â¶ {{ t.continueS1E4 }}</button>
+            <div style="display:flex;gap:9px">
+              <button onClick="{{ toggleFav }}" style="flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:Figtree;font-weight:700;font-size:14px;padding:12px;border-radius:10px;cursor:pointer">{{ favLabel }}</button>
+              <button style="flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:Figtree;font-weight:700;font-size:14px;padding:12px;border-radius:10px;cursor:pointer">â {{ t.share }}</button>
+            </div>
+          </div>
+          <div style="padding:0 18px">
+            <div style="display:flex;gap:20px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:18px">
+              <sc-for list="{{ hubTabs }}" as="tb" hint-placeholder-count="3">
+                <button onClick="{{ tb.pick }}" style="{{ tb.mcss }}">{{ tb.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ tabEps }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ episodes }}" as="e" hint-placeholder-count="4">
+                  <button onClick="{{ goPlayer }}" style="display:flex;gap:12px;background:none;border:none;padding:0;cursor:pointer;text-align:left;color:#F5F3F7">
+                    <span style="width:120px;height:70px;border-radius:8px;background:{{ e.bg }};flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;font-size:13px">â¶
+                      <span style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.5)"><span style="display:block;height:100%;background:#FF3D71;width:{{ e.pct }}"></span></span>
+                    </span>
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-size:14px;font-weight:700">{{ e.n }} Â· {{ e.title }}</span>
+                      <span style="display:block;font-size:11px;color:#75718A;margin:3px 0 4px">{{ e.dur }}</span>
+                      <span style="display:block;font-size:12px;color:#9A97A8;line-height:1.45">{{ e.short }}</span>
+                    </span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ tabCast }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+                <sc-for list="{{ cast }}" as="c" hint-placeholder-count="6">
+                  <div style="text-align:center">
+                    <div style="width:76px;height:76px;border-radius:50%;background:{{ c.bg }};margin:0 auto 9px;border:1px solid rgba(255,255,255,.12)"></div>
+                    <div style="font-size:12px;font-weight:700">{{ c.actor }}</div>
+                    <div style="font-size:11px;color:#9A97A8;margin-top:2px">{{ c.role }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ tabOst }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ ostList }}" as="o" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:13px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:11px">
+                    <button style="width:36px;height:36px;border-radius:50%;background:#FF3D71;border:none;color:#fff;font-size:12px;cursor:pointer;flex-shrink:0">â¶</button>
+                    <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">{{ o.song }}</div><div style="font-size:11px;color:#9A97A8">{{ o.artist }}</div></div>
+                    <div style="font-size:11px;color:#75718A">{{ o.dur }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mAccount }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:62px 18px 0">
+          <h1 style="font-family:Unbounded,sans-serif;font-size:24px;font-weight:700;margin:0 0 22px">{{ t.account }}</h1>
+          <div style="display:flex;align-items:center;gap:14px;background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;margin-bottom:12px">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF3D71,#7B2C4C);display:flex;align-items:center;justify-content:center;font-family:Unbounded,sans-serif;font-size:17px;font-weight:700">A</div>
+            <div><div style="font-size:16px;font-weight:700">Ana Lima</div><div style="font-size:12px;color:#9A97A8">ana.lima@email.com</div></div>
+          </div>
+          <div style="background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700">{{ t.currentPlan }}</span>
+              <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(61,220,151,.14);color:#3DDC97;border:1px solid rgba(61,220,151,.3);padding:3px 9px;border-radius:100px">{{ t.active }}</span>
+            </div>
+            <div style="font-family:Unbounded,sans-serif;font-size:17px;font-weight:700;margin-bottom:4px">{{ t.planName }}</div>
+            <div style="font-size:12px;color:#9A97A8;margin-bottom:16px">{{ t.renews }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:13px;margin-bottom:14px">
+              <div><div style="font-size:14px;font-weight:700">{{ screensWidget }}</div><div style="font-size:12px;color:#9A97A8;margin-top:2px">{{ totalF }} / {{ t.month }}</div></div>
+              <div style="display:flex;gap:5px">
+                <sc-for list="{{ screenDots }}" as="d" hint-placeholder-count="3">
+                  <span style="width:22px;height:17px;border-radius:4px;border:1.5px solid {{ d.color }};background:{{ d.fill }}"></span>
+                </sc-for>
+              </div>
+            </div>
+            <button onClick="{{ goPlan }}" style="width:100%;background:rgba(255,61,113,.14);border:1px solid rgba(255,61,113,.4);color:#FF7FA2;font-family:Figtree;font-weight:700;font-size:14px;padding:13px;border-radius:10px;cursor:pointer">{{ t.manageScreens }}</button>
+          </div>
+          <div style="background:#13131B;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px">
+            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:14px">{{ t.devices }}</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ devices }}" as="d" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">{{ d.icon }}</div>
+                  <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">{{ d.name }}</div><div style="font-size:11px;color:#9A97A8">{{ d.meta }}</div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ mPlayer }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:linear-gradient(165deg,#2A1020 0%,#0C0812 60%,#050508 100%)">
+          <div style="position:absolute;top:56px;left:18px;right:18px;display:flex;align-items:center;justify-content:space-between">
+            <button onClick="{{ goHub }}" style="background:none;border:none;color:#fff;font-size:19px;cursor:pointer;padding:0">â</button>
+            <div style="text-align:center;font-size:13px;font-weight:700">{{ hero.title }}<div style="font-size:11px;color:#B6B2C4;font-weight:500;margin-top:2px">S1:E3</div></div>
+            <button onClick="{{ openSettings }}" style="background:none;border:none;color:#fff;font-size:17px;cursor:pointer;padding:0">â</button>
+          </div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:34px">
+            <button style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;cursor:pointer">âª10</button>
+            <button onClick="{{ togglePlay }}" style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.5);color:#fff;font-size:25px;cursor:pointer">{{ playIcon }}</button>
+            <button style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;cursor:pointer">10â©</button>
+          </div>
+          <sc-if value="{{ showGlossary }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;top:108px;left:18px;right:18px;background:rgba(20,20,29,.96);border:1px solid rgba(255,61,113,.4);border-radius:14px;padding:16px">
+              <div style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#FF7FA2;margin-bottom:6px">{{ t.glossary }}</div>
+              <div style="font-family:Unbounded,sans-serif;font-size:16px;font-weight:700;margin-bottom:8px">Chaebol</div>
+              <p style="font-size:12px;line-height:1.55;color:#C4C0D0;margin:0">{{ t.chaebol }}</p>
+            </div>
+          </sc-if>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:18px;background:linear-gradient(0deg,rgba(0,0,0,.9) 25%,transparent)">
+            <div style="text-align:center;margin-bottom:18px"><span style="display:inline-block;background:rgba(0,0,0,.6);border-radius:7px;padding:8px 14px;font-size:15px;font-weight:600;line-height:1.4">{{ t.subtitle1 }}</span></div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <span style="font-size:11px;color:#C4C0D0;font-weight:600">24:15</span>
+              <div style="flex:1;position:relative;height:4px;border-radius:3px;background:rgba(255,255,255,.22)">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:34%;background:#FF3D71;border-radius:3px"></div>
+                <div style="position:absolute;left:34%;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%)"></div>
+                <sc-for list="{{ markers }}" as="m" hint-placeholder-count="3">
+                  <button onClick="{{ m.open }}" style="position:absolute;top:50%;transform:translate(-50%,-50%);left:{{ m.left }};width:9px;height:9px;border-radius:50%;background:#FFD166;border:2px solid #0A0A0F;cursor:pointer;padding:0"></button>
+                </sc-for>
+              </div>
+              <span style="font-size:11px;color:#C4C0D0;font-weight:600">1:10:00</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;gap:18px"><button onClick="{{ togglePlay }}" style="background:none;border:none;color:#fff;font-size:16px;cursor:pointer">{{ playIcon }}</button><button style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer">â­</button><button style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer">ð</button></div>
+              <button style="background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;font-family:Figtree;font-size:12px;font-weight:700;padding:8px 13px;border-radius:8px;cursor:pointer">{{ t.skipIntro }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ mShowNav }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:0;right:0;bottom:0;height:76px;display:flex;align-items:flex-start;padding-top:11px;background:rgba(12,12,18,.96);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.09);z-index:40">
+      <sc-for list="{{ bottomNav }}" as="b" hint-placeholder-count="4">
+        <button onClick="{{ b.go }}" style="{{ b.css }}">
+          <span style="font-size:19px">{{ b.icon }}</span>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.02em">{{ b.label }}</span>
+        </button>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showSettings }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:60;background:rgba(5,5,9,.82);display:flex;align-items:flex-end">
+        <div style="width:100%;background:#14141D;border-top:1px solid rgba(255,255,255,.12);border-radius:22px 22px 0 0;padding:24px 20px 30px;animation:dhFade .25s ease both">
+          <div style="width:38px;height:4px;border-radius:3px;background:rgba(255,255,255,.22);margin:0 auto 20px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+            <h2 style="font-family:Unbounded,sans-serif;font-size:17px;font-weight:700;margin:0">{{ t.mediaSettings }}</h2>
+            <button onClick="{{ closeSettings }}" style="background:none;border:none;color:#75718A;font-size:20px;cursor:pointer">Ã</button>
+          </div>
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin-bottom:10px">{{ t.subsLang }}</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px">
+            <sc-for list="{{ subLangs }}" as="s" hint-placeholder-count="3">
+              <button onClick="{{ s.pick }}" style="{{ s.css }}">{{ s.label }}</button>
+            </sc-for>
+          </div>
+          <button onClick="{{ toggleDual }}" style="{{ cssDual }}">
+            <span style="{{ cssDualKnob }}"></span>
+            <span style="text-align:left"><span style="display:block;font-size:13px;font-weight:700">{{ t.dualSubs }}</span></span>
+          </button>
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#75718A;font-weight:700;margin:22px 0 10px">{{ t.quality }}</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <sc-for list="{{ qualities }}" as="q" hint-placeholder-count="3">
+              <button onClick="{{ q.pick }}" style="{{ q.css }}">{{ q.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showLimit }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:70;background:rgba(5,5,9,.85);display:flex;align-items:center;justify-content:center;padding:20px">
+        <div style="width:100%;background:#14141D;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px;text-align:center;animation:dhFade .25s ease both">
+          <div style="display:flex;gap:7px;justify-content:center;margin-bottom:18px">
+            <sc-for list="{{ limitDots }}" as="d" hint-placeholder-count="3">
+              <div style="width:46px;height:34px;border-radius:6px;border:2px solid {{ d.color }};background:{{ d.fill }};display:flex;align-items:center;justify-content:center;font-size:13px;color:{{ d.color }}">{{ d.icon }}</div>
+            </sc-for>
+          </div>
+          <h2 style="font-family:Unbounded,sans-serif;font-size:18px;font-weight:700;margin:0 0 10px;line-height:1.3">{{ t.limitTitle }}</h2>
+          <p style="font-size:13px;color:#9A97A8;line-height:1.55;margin:0 0 22px">{{ t.limitBody }}</p>
+          <button onClick="{{ addScreenFromModal }}" style="width:100%;background:#FF3D71;border:none;color:#fff;font-family:Figtree;font-weight:800;font-size:14px;padding:14px;border-radius:10px;cursor:pointer;margin-bottom:9px">{{ t.limitCta }}</button>
+          <button onClick="{{ closeLimit }}" style="width:100%;background:none;border:1px solid rgba(255,255,255,.16);color:#C4C0D0;font-family:Figtree;font-weight:600;font-size:14px;padding:13px;border-radius:10px;cursor:pointer">{{ t.gotIt }}</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pt&quot;,&quot;en&quot;],&quot;default&quot;:&quot;pt&quot;,&quot;tsType&quot;:&quot;'pt'|'en'&quot;,&quot;section&quot;:&quot;ConteÃºdo&quot;},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;'desktop'|'mobile'&quot;,&quot;section&quot;:&quot;ConteÃºdo&quot;},&quot;basePrice&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:24.9,&quot;min&quot;:9.9,&quot;max&quot;:79.9,&quot;step&quot;:1,&quot;unit&quot;:&quot;R$&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;PreÃ§os&quot;},&quot;extraPrice&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:9.9,&quot;min&quot;:0,&quot;max&quot;:29.9,&quot;step&quot;:1,&quot;unit&quot;:&quot;R$&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;PreÃ§os&quot;}}">
+const ACC = '#FF3D71';
+const G = (a, b) => `linear-gradient(160deg,${a} 0%,${b} 100%)`;
+
+const STR = {
+  pt: {
+    login: 'Entrar', hotNow: 'Em alta esta semana',
+    heroTitle: 'Todo dorama que vocÃª ama. Em Full HD.',
+    heroSub: 'K-Dramas, C-Dramas e filmes asiÃ¡ticos com legendas em portuguÃªs, coreano e inglÃªs. Sem perfis confusos: sua conta, seu histÃ³rico.',
+    emailPh: 'Seu melhor e-mail', ctaWatch: 'Assista agora',
+    heroNote: 'Cancele quando quiser. Pagamento por PIX ou cartÃ£o.',
+    step1: 'Passo 1 de 4 Â· Cadastro', step2: 'Passo 2 de 4 Â· Plano', step3: 'Passo 3 de 4 Â· Pagamento',
+    signupTitle: 'Crie sua conta', signupSub: 'Leva menos de um minuto. VocÃª escolhe o plano no prÃ³ximo passo.',
+    fEmail: 'E-mail', fPass: 'Senha', fName: 'Nome completo',
+    passHint: 'MÃ­nimo de 8 caracteres, com um nÃºmero.',
+    terms: 'Ao continuar vocÃª concorda com os Termos de Uso e a PolÃ­tica de Privacidade da Dramahub.',
+    continue: 'Continuar',
+    asideQuote: 'âSem perfis confusos: acesse direto seu histÃ³rico e seus favoritos.â',
+    asideBullets: ['Biblioteca completa de doramas em 1080p', 'Telas simultÃ¢neas para toda a famÃ­lia', 'Legendas duplas para quem estuda coreano'],
+    planTitle: 'Um plano. Quantas telas vocÃª precisar.',
+    onlyPlan: 'Plano Ãºnico', planName: 'Plano Full HD', planTag: 'Tudo em 1080p, sem anÃºncios',
+    planIncludes: ['Acesso total ao catÃ¡logo', 'Sem anÃºncios', 'Smart TV, mobile e web', '1 tela inclusa no valor base'],
+    extraScreens: 'Telas extras', extraHelp: 'Cada tela adicional permite mais uma pessoa assistindo ao mesmo tempo.',
+    summary: 'Resumo do pedido', perMonth: 'Total por mÃªs', goPay: 'Ir para o pagamento',
+    cancelAny: 'Sem fidelidade. Cancele a qualquer momento.',
+    checkoutTitle: 'Pagamento', personalData: 'Dados pessoais', card: 'CartÃ£o de crÃ©dito',
+    pixWaiting: 'Aguardando pagamento', pixTitle: 'Escaneie o QR Code no seu banco',
+    pixBody: 'A liberaÃ§Ã£o Ã© automÃ¡tica assim que o pagamento cair. VocÃª nÃ£o precisa sair desta tela.',
+    copyPaste: 'Copia e cola',
+    cardNum: 'NÃºmero do cartÃ£o', valid: 'Validade', holder: 'Nome do titular',
+    saveCard: 'Salvar cartÃ£o para renovaÃ§Ã£o automÃ¡tica',
+    recurring: 'CobranÃ§a recorrente', confirm: 'Confirmar assinatura',
+    welcome: 'Bem-vinda Ã  Dramahub', onbTitle: 'O que vocÃª gosta de assistir?',
+    onbSub: 'Escolha alguns gÃªneros e tÃ­tulos. Usamos isso para montar sua home.',
+    pickFav: 'Doramas favoritos', finish: 'Concluir', skip: 'Pular esta etapa',
+    genres: ['Romance', 'HistÃ³rico', 'Thriller', 'ComÃ©dia', 'Fantasia', 'Escolar', 'MÃ©dico', 'Legal/JurÃ­dico', 'AÃ§Ã£o', 'Slice of life', 'C-Drama', 'BL'],
+    search: 'Buscar doramas, atoresâ¦',
+    navHome: 'InÃ­cio', navK: 'K-Dramas', navC: 'C-Dramas', navFilms: 'Filmes', navList: 'Minha Lista',
+    newEp: 'Novo episÃ³dio', korea: 'Coreia',
+    watchEp1: 'Assistir Ep. 1', myList: 'Minha Lista', moreInfo: 'Mais informaÃ§Ãµes', watch: 'Assistir', list: 'Lista',
+    continueWatching: 'Continuar assistindo', top10: 'Top 10 no Brasil hoje',
+    weekly: 'LanÃ§amentos semanais', osts: 'Trilhas sonoras populares',
+    weekDays: ['Seg/Ter', 'Qua/Qui', 'Sex', 'Fim de semana'],
+    episodes: 'episÃ³dios', continueS1E4: 'Continuar S1:E4', fav: 'Favoritar', faved: 'Favoritado',
+    progressNote: 'VocÃª parou em 00:24:15 do episÃ³dio 4.', share: 'Compartilhar',
+    tabEps: 'EpisÃ³dios', tabCast: 'Elenco', tabOst: 'Trilha sonora',
+    account: 'Minha conta', subscriber: 'Assinante', password: 'Senha', change: 'Alterar',
+    currentPlan: 'Plano atual', active: 'Ativa', renews: 'Renova em 14 de outubro de 2026', month: 'mÃªs',
+    manageScreens: 'Gerenciar telas extras',
+    devices: 'Dispositivos conectados', devicesSub: 'Aparelhos em que sua conta foi aberta recentemente.',
+    disconnect: 'Desconectar', logoutAll: 'Sair de todos os dispositivos',
+    settings: 'Config', mediaSettings: 'ConfiguraÃ§Ãµes de mÃ­dia',
+    subsLang: 'Legendas', dualSubs: 'Legendas duplas', dualSubsHint: 'PortuguÃªs e coreano ao mesmo tempo, para aprendizado.',
+    quality: 'Qualidade de vÃ­deo', shortcuts: 'Atalhos rÃ¡pidos',
+    skipIntro: 'Pular abertura', nextEpBtn: 'PrÃ³ximo episÃ³dio', nextEp: 'A seguir: S1:E4',
+    glossary: 'GlossÃ¡rio cultural',
+    chaebol: 'Conglomerado familiar sul-coreano. Grandes grupos empresariais controlados por uma Ãºnica famÃ­lia ao longo de geraÃ§Ãµes â um cenÃ¡rio recorrente nos doramas de romance e poder.',
+    subtitle1: 'Oppa, vocÃª estÃ¡ bem?', subtitle2: 'ì¤ë¹ , ê´ì°®ìì?',
+    limitTitle: 'Limite de telas atingido',
+    limitBody: 'Sua conta jÃ¡ estÃ¡ sendo usada em todas as telas disponÃ­veis. Adicione uma tela extra ou encerre uma sessÃ£o em Dispositivos Conectados.',
+    limitCta: 'Adicionar +1 tela', gotIt: 'Entendi, voltar ao inÃ­cio',
+    faqs: [
+      ['Quais formas de pagamento vocÃªs aceitam?', 'PIX e cartÃ£o de crÃ©dito. No PIX a liberaÃ§Ã£o Ã© imediata apÃ³s a confirmaÃ§Ã£o; no cartÃ£o a renovaÃ§Ã£o Ã© automÃ¡tica todo mÃªs.'],
+      ['Posso cancelar quando quiser?', 'Sim. NÃ£o hÃ¡ fidelidade. Ao cancelar vocÃª mantÃ©m o acesso atÃ© o fim do perÃ­odo jÃ¡ pago.'],
+      ['Em quais dispositivos funciona?', 'Smart TVs, navegadores web, celulares e tablets Android e iOS. Tudo em 1080p.'],
+      ['Como funcionam as telas simultÃ¢neas?', 'O plano base inclui 1 tela. Cada tela extra permite mais uma pessoa assistindo ao mesmo tempo, e pode ser adicionada ou removida a qualquer momento.']
+    ],
+    perks: [
+      ['Full HD sempre', 'Sua biblioteca completa de doramas em 1080p, sem cobranÃ§a extra por qualidade.'],
+      ['Telas para a famÃ­lia', 'Assista de onde quiser, com a opÃ§Ã£o de telas simultÃ¢neas para quem mora com vocÃª.'],
+      ['Sem perfis confusos', 'Uma conta, um histÃ³rico. Acesse direto seus favoritos e continue de onde parou.']
+    ],
+    ntel: ['tela', 'telas']
+  },
+  en: {
+    login: 'Sign in', hotNow: 'Trending this week',
+    heroTitle: 'Every drama you love. In Full HD.',
+    heroSub: 'K-Dramas, C-Dramas and Asian films with Portuguese, Korean and English subtitles. No confusing profiles: your account, your history.',
+    emailPh: 'Your email address', ctaWatch: 'Watch now',
+    heroNote: 'Cancel anytime. Pay by PIX or credit card.',
+    step1: 'Step 1 of 4 Â· Sign up', step2: 'Step 2 of 4 Â· Plan', step3: 'Step 3 of 4 Â· Payment',
+    signupTitle: 'Create your account', signupSub: 'Takes under a minute. You pick your plan on the next step.',
+    fEmail: 'Email', fPass: 'Password', fName: 'Full name',
+    passHint: 'At least 8 characters, including a number.',
+    terms: 'By continuing you agree to Dramahubâs Terms of Use and Privacy Policy.',
+    continue: 'Continue',
+    asideQuote: 'âNo confusing profiles: go straight to your history and favourites.â',
+    asideBullets: ['Full drama library in 1080p', 'Simultaneous screens for the whole family', 'Dual subtitles for Korean learners'],
+    planTitle: 'One plan. As many screens as you need.',
+    onlyPlan: 'Single plan', planName: 'Full HD Plan', planTag: 'Everything in 1080p, ad-free',
+    planIncludes: ['Full catalogue access', 'No ads', 'Smart TV, mobile and web', '1 screen included in the base price'],
+    extraScreens: 'Extra screens', extraHelp: 'Each additional screen lets one more person watch at the same time.',
+    summary: 'Order summary', perMonth: 'Total per month', goPay: 'Go to payment',
+    cancelAny: 'No contract. Cancel at any time.',
+    checkoutTitle: 'Payment', personalData: 'Personal details', card: 'Credit card',
+    pixWaiting: 'Awaiting payment', pixTitle: 'Scan the QR code in your banking app',
+    pixBody: 'Access is released automatically as soon as the payment clears. No need to leave this screen.',
+    copyPaste: 'Copy code',
+    cardNum: 'Card number', valid: 'Expiry', holder: 'Cardholder name',
+    saveCard: 'Save card for automatic renewal',
+    recurring: 'Recurring charge', confirm: 'Confirm subscription',
+    welcome: 'Welcome to Dramahub', onbTitle: 'What do you like to watch?',
+    onbSub: 'Pick a few genres and titles. We use them to build your home screen.',
+    pickFav: 'Favourite dramas', finish: 'Finish', skip: 'Skip this step',
+    genres: ['Romance', 'Historical', 'Thriller', 'Comedy', 'Fantasy', 'School', 'Medical', 'Legal', 'Action', 'Slice of life', 'C-Drama', 'BL'],
+    search: 'Search dramas, actorsâ¦',
+    navHome: 'Home', navK: 'K-Dramas', navC: 'C-Dramas', navFilms: 'Films', navList: 'My List',
+    newEp: 'New episode', korea: 'Korea',
+    watchEp1: 'Watch Ep. 1', myList: 'My List', moreInfo: 'More info', watch: 'Watch', list: 'List',
+    continueWatching: 'Continue watching', top10: 'Top 10 in Brazil today',
+    weekly: 'Weekly releases', osts: 'Popular soundtracks',
+    weekDays: ['Mon/Tue', 'Wed/Thu', 'Fri', 'Weekend'],
+    episodes: 'episodes', continueS1E4: 'Continue S1:E4', fav: 'Add to favourites', faved: 'In favourites',
+    progressNote: 'You stopped at 00:24:15 of episode 4.', share: 'Share',
+    tabEps: 'Episodes', tabCast: 'Cast', tabOst: 'Soundtrack',
+    account: 'My account', subscriber: 'Subscriber', password: 'Password', change: 'Change',
+    currentPlan: 'Current plan', active: 'Active', renews: 'Renews on 14 October 2026', month: 'month',
+    manageScreens: 'Manage extra screens',
+    devices: 'Connected devices', devicesSub: 'Devices your account was recently opened on.',
+    disconnect: 'Disconnect', logoutAll: 'Sign out of all devices',
+    settings: 'Settings', mediaSettings: 'Media settings',
+    subsLang: 'Subtitles', dualSubs: 'Dual subtitles', dualSubsHint: 'Portuguese and Korean at once, for learning.',
+    quality: 'Video quality', shortcuts: 'Quick actions',
+    skipIntro: 'Skip intro', nextEpBtn: 'Next episode', nextEp: 'Up next: S1:E4',
+    glossary: 'Cultural glossary',
+    chaebol: 'A South Korean family conglomerate. Large business groups controlled by a single family across generations â a recurring setting in romance and power dramas.',
+    subtitle1: 'Oppa, are you okay?', subtitle2: 'ì¤ë¹ , ê´ì°®ìì?',
+    limitTitle: 'Screen limit reached',
+    limitBody: 'Your account is already streaming on every available screen. Add an extra screen or end a session under Connected Devices.',
+    limitCta: 'Add +1 screen', gotIt: 'Got it, back to home',
+    faqs: [
+      ['Which payment methods do you accept?', 'PIX and credit card. With PIX access is released right after confirmation; with a card the subscription renews automatically each month.'],
+      ['Can I cancel anytime?', 'Yes. There is no contract. When you cancel you keep access until the end of the period you already paid for.'],
+      ['Which devices are supported?', 'Smart TVs, web browsers, Android and iOS phones and tablets. All in 1080p.'],
+      ['How do simultaneous screens work?', 'The base plan includes 1 screen. Each extra screen lets one more person watch at the same time, and can be added or removed whenever you want.']
+    ],
+    perks: [
+      ['Always Full HD', 'Your whole drama library in 1080p, with no surcharge for quality.'],
+      ['Screens for the family', 'Watch from anywhere, with optional simultaneous screens for the people you live with.'],
+      ['No confusing profiles', 'One account, one history. Go straight to your favourites and pick up where you left off.']
+    ],
+    ntel: ['screen', 'screens']
+  }
+};
+
+const TITLES = [
+  ['Luar de Seul', 'Moonlight Over Seoul', G('#5B2A9E', '#170B2B')],
+  ['O Contrato de Inverno', 'The Winter Contract', G('#1E5A7A', '#0B1A26')],
+  ['Herdeiros de Jade', 'Heirs of Jade', G('#2E7D5B', '#0C1F17')],
+  ['CafÃ© da Meia-Noite', 'Midnight CafÃ©', G('#9A5B2A', '#241409')],
+  ['A Rainha de Papel', 'The Paper Queen', G('#8C2340', '#240A13')],
+  ['Nove Caudas', 'Nine Tails', G('#6B2E8C', '#1B0B24')],
+  ['Primavera em Busan', 'Spring in Busan', G('#C46A8E', '#33131F')],
+  ['Segredos do PalÃ¡cio Han', 'Secrets of Han Palace', G('#A8873C', '#2A2010')],
+  ['Amor em Modo AviÃ£o', 'Love in Airplane Mode', G('#2F6FA8', '#0D1C2B')],
+  ['Doce VinganÃ§a', 'Sweet Revenge', G('#B03A2E', '#2B0E0A')]
+];
+
+const APP_SCREENS = ['home', 'hub', 'account', 'devices'];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'landing', device: null, lang: null,
+    extras: 1, pay: 'pix', faq: 0, hubTab: 'eps', week: 0,
+    paused: true, glossary: true, settings: false, limit: false,
+    fav: false, dual: true, sub: 0, qual: 0, prefs: {}, favs: {}
+  };
+
+  set(k, v) { this.setState({ [k]: v }); }
+
+  renderVals() {
+    const s = this.state;
+    const lang = s.lang || this.props.lang || 'pt';
+    const t = STR[lang];
+    const base = this.props.basePrice ?? 24.9;
+    const per = this.props.extraPrice ?? 9.9;
+    const money = n => (lang === 'pt' ? 'R$ ' + n.toFixed(2).replace('.', ',') : 'R$ ' + n.toFixed(2));
+    const nm = (i, o) => (lang === 'pt' ? TITLES[i][0] : TITLES[i][1]);
+
+    const device = s.device || this.props.device || 'desktop';
+    const mobile = device === 'mobile';
+    const screen = s.screen;
+    const isApp = APP_SCREENS.indexOf(screen) >= 0;
+
+    const go = v => () => this.setState({ screen: v, limit: false, settings: false });
+
+    // chrome menu
+    const items = [
+      ['landing', 'Landing'], ['signup', lang === 'pt' ? 'Cadastro' : 'Sign up'],
+      ['plan', lang === 'pt' ? 'Plano' : 'Plan'], ['checkout', 'Checkout'],
+      ['onboarding', lang === 'pt' ? 'PreferÃªncias' : 'Preferences'],
+      ['home', 'Home'], ['hub', 'Drama Hub'], ['player', 'Player'],
+      ['settings*', lang === 'pt' ? 'Config. mÃ­dia' : 'Media settings'],
+      ['account', lang === 'pt' ? 'Conta' : 'Account'],
+      ['devices', lang === 'pt' ? 'Dispositivos' : 'Devices'],
+      ['limit*', lang === 'pt' ? 'Limite de telas' : 'Screen limit']
+    ];
+    const chipBase = 'font-family:Figtree;font-size:12px;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;border:1px solid ';
+    const activeChip = id => {
+      if (id === 'settings*') return screen === 'player' && s.settings;
+      if (id === 'limit*') return s.limit;
+      return screen === id && !s.settings && !s.limit;
+    };
+    const menu = items.map(([id, label]) => ({
+      label,
+      css: chipBase + (activeChip(id) ? ACC + ';background:rgba(255,61,113,.16);color:#FFAFC6' : 'rgba(255,255,255,.08);background:transparent;color:#8D8A9C'),
+      go: () => {
+        if (id === 'settings*') this.setState({ screen: 'player', settings: true, limit: false });
+        else if (id === 'limit*') this.setState({ screen: mobile ? 'home' : 'home', limit: true, settings: false });
+        else this.setState({ screen: id, settings: false, limit: false });
+      }
+    }));
+
+    const toggBase = 'font-family:Figtree;font-size:12px;font-weight:700;padding:6px 13px;border-radius:7px;cursor:pointer;border:none;';
+    const on = 'background:' + ACC + ';color:#fff;';
+    const off = 'background:transparent;color:#8D8A9C;';
+
+    // data rows
+    const continueRow = [0, 3, 6, 1, 8].map((i, k) => ({
+      title: nm(i), sub: (lang === 'pt' ? 'Ep. ' : 'Ep. ') + (3 + k) + ' Â· ' + [64, 22, 91, 8, 47][k] + '%',
+      pct: [64, 22, 91, 8, 47][k] + '%', bg: TITLES[i][2]
+    }));
+    const topRow = TITLES.slice(0, 8).map((x, i) => ({ n: i + 1, title: lang === 'pt' ? x[0] : x[1], bg: x[2] }));
+    const weekSets = [[1, 4, 7, 2, 5, 9], [0, 3, 6, 8, 2, 5], [9, 1, 4, 7, 0, 3], [5, 8, 2, 6, 9, 1]];
+    const weekRow = weekSets[s.week].map((i, k) => ({
+      title: nm(i), bg: TITLES[i][2],
+      badge: k === 0 ? (lang === 'pt' ? 'Hoje' : 'Today') : 'Ep. ' + (4 + k),
+      meta: (lang === 'pt' ? 'Novo ep. Ã s ' : 'New ep. at ') + ['21h', '22h', '20h30', '21h30', '23h', '19h'][k]
+    }));
+    const ostRow = [
+      ['Through the Night', 0], ['Winter Letter', 1], ['ì°ë¦¬ (Us)', 2], ['Paper Moon', 4], ['ì²«ì¬ë', 6], ['Lanterns', 7]
+    ].map(([song, i]) => ({ song, from: nm(i), bg: TITLES[i][2] }));
+
+    const epTitles = lang === 'pt'
+      ? ['O primeiro encontro', 'Chuva em Gangnam', 'A promessa de Chaebol', 'Uma noite em Jeju', 'O contrato rompido']
+      : ['The first meeting', 'Rain in Gangnam', 'The chaebol promise', 'A night in Jeju', 'The broken contract'];
+    const epDesc = lang === 'pt'
+      ? ['Ji-woo perde o Ãºltimo trem e acaba dividindo um tÃ¡xi com o herdeiro que jurou nunca mais ver.',
+         'Uma tempestade prende os dois no escritÃ³rio, e a conversa vai longe demais.',
+         'A famÃ­lia exige uma decisÃ£o. Ele promete o que nÃ£o pode cumprir.',
+         'A viagem de trabalho vira um fim de semana que nenhum dos dois planejava.',
+         'O que estava assinado no papel deixa de valer.']
+      : ['Ji-woo misses the last train and shares a cab with the heir she swore never to see again.',
+         'A storm traps them in the office, and the conversation goes too far.',
+         'The family demands a decision. He promises what he cannot keep.',
+         'A work trip turns into a weekend neither of them planned.',
+         'What was signed on paper stops holding.'];
+    const episodes = epTitles.map((title, i) => ({
+      n: i + 1, title, desc: epDesc[i], short: epDesc[i].slice(0, 58) + 'â¦',
+      dur: (62 + i * 3) + ' min', bg: TITLES[(i + 2) % 10][2], pct: i < 3 ? '100%' : (i === 3 ? '34%' : '0%')
+    }));
+
+    const castNames = ['Seo Ha-eun', 'Kim Do-yun', 'Park Min-ji', 'Lee Jun-ho', 'Han So-ra', 'Jung Tae-woo'];
+    const roles = lang === 'pt'
+      ? ['como Ji-woo', 'como Seon-jae', 'como Hye-rin', 'como Min-gyu', 'como Sra. Baek', 'como Detetive Oh']
+      : ['as Ji-woo', 'as Seon-jae', 'as Hye-rin', 'as Min-gyu', 'as Mrs. Baek', 'as Detective Oh'];
+    const cast = castNames.map((actor, i) => ({ actor, role: roles[i], bg: TITLES[i][2] }));
+
+    const ostList = [
+      ['Through the Night', 'Yoon Ha', '3:42'], ['Winter Letter', 'BAEKSU', '4:01'],
+      ['ì°ë¦¬ (Us)', 'Cho Eun', '3:18'], ['Paper Moon', 'The Lamps', '3:55'], ['ì²«ì¬ë', 'Kim Na-young', '4:22']
+    ].map(([song, artist, dur]) => ({ song, artist, dur }));
+
+    const devices = [
+      ['ð¥', 'Chrome Â· Windows', 'Recife, PE Â· ' + (lang === 'pt' ? 'agora' : 'now'), lang === 'pt' ? 'Este aparelho' : 'This device'],
+      ['ðº', 'Samsung Smart TV', (lang === 'pt' ? 'Sala Â· hÃ¡ 2 horas' : 'Living room Â· 2 hours ago'), lang === 'pt' ? 'Assistindo' : 'Watching'],
+      ['ð±', 'iPhone 15', (lang === 'pt' ? 'Recife, PE Â· ontem' : 'Recife, PE Â· yesterday'), ''],
+      ['ð±', 'Android Â· Galaxy Tab', (lang === 'pt' ? 'Olinda, PE Â· hÃ¡ 3 dias' : 'Olinda, PE Â· 3 days ago'), '']
+    ].map(([icon, name, meta, badge]) => ({
+      icon, name, meta, badge,
+      badgeCss: badge
+        ? 'font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:100px;' +
+          (badge === 'Assistindo' || badge === 'Watching'
+            ? 'background:rgba(255,61,113,.16);color:#FFAFC6;border:1px solid rgba(255,61,113,.35)'
+            : 'background:rgba(255,255,255,.08);color:#9A97A8;border:1px solid rgba(255,255,255,.12)')
+        : 'display:none'
+    }));
+
+    const total = base + s.extras * per;
+    const totalScreens = 1 + s.extras;
+    const plural = n => (n === 1 ? t.ntel[0] : t.ntel[1]);
+
+    const screenDots = Array.from({ length: Math.min(totalScreens, 5) }).map((_, i) => ({
+      color: i === 0 ? ACC : 'rgba(255,255,255,.3)',
+      fill: i === 0 ? 'rgba(255,61,113,.2)' : 'transparent'
+    }));
+    const limitDots = Array.from({ length: totalScreens }).map(() => ({ color: ACC, fill: 'rgba(255,61,113,.14)', icon: 'â¶' }));
+
+    const tabDef = [['eps', t.tabEps], ['cast', t.tabCast], ['ost', t.tabOst]];
+    const hubTabs = tabDef.map(([id, label]) => {
+      const act = s.hubTab === id;
+      const c = 'background:none;border:none;font-family:Figtree;font-weight:700;cursor:pointer;border-bottom:2px solid ' +
+        (act ? ACC : 'transparent') + ';color:' + (act ? '#F5F3F7' : '#75718A') + ';';
+      return { label, pick: () => this.set('hubTab', id), css: c + 'font-size:16px;padding:0 0 14px;margin-bottom:-1px', mcss: c + 'font-size:13px;padding:0 0 11px;margin-bottom:-1px' };
+    });
+
+    const pillOn = 'font-family:Figtree;font-size:13px;font-weight:700;padding:10px 16px;border-radius:9px;cursor:pointer;background:rgba(255,61,113,.16);border:1px solid ' + ACC + ';color:#FFAFC6';
+    const pillOff = 'font-family:Figtree;font-size:13px;font-weight:700;padding:10px 16px;border-radius:9px;cursor:pointer;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#C4C0D0';
+
+    const subLangs = ['PortuguÃªs', 'English', 'íêµ­ì´ (Coreano)'].map((label, i) => ({
+      label, pick: () => this.set('sub', i), css: s.sub === i ? pillOn : pillOff
+    }));
+    const qualities = ['1080p (Full HD)', '720p', 'Auto'].map((label, i) => ({
+      label, pick: () => this.set('qual', i), css: s.qual === i ? pillOn : pillOff
+    }));
+
+    const genres = t.genres.map((label, i) => {
+      const act = !!s.prefs[i];
+      return {
+        label, toggle: () => this.setState(st => ({ prefs: Object.assign({}, st.prefs, { [i]: !st.prefs[i] }) })),
+        css: 'font-family:Figtree;font-size:14px;font-weight:600;padding:11px 20px;border-radius:100px;cursor:pointer;' +
+          (act ? 'background:' + ACC + ';border:1px solid ' + ACC + ';color:#fff' : 'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#C4C0D0')
+      };
+    });
+    const onbPosters = TITLES.map((x, i) => ({
+      title: lang === 'pt' ? x[0] : x[1], bg: x[2],
+      meta: (i % 3 === 2 ? (lang === 'pt' ? 'ð¨ð³ C-Drama' : 'ð¨ð³ C-Drama') : 'ð°ð· K-Drama'),
+      toggle: () => this.setState(st => ({ favs: Object.assign({}, st.favs, { [i]: !st.favs[i] }) })),
+      css: 'background:#13131B;border-radius:12px;overflow:hidden;cursor:pointer;padding:0;text-align:left;color:#F5F3F7;border:2px solid ' +
+        (s.favs[i] ? ACC : 'rgba(255,255,255,.08)')
+    }));
+
+    const stepBg = active => (active ? ACC : 'rgba(255,255,255,.14)');
+    const heroSyn = lang === 'pt'
+      ? 'Uma advogada em ascensÃ£o volta Ã  cidade natal e descobre que o herdeiro que ela processou hÃ¡ dez anos agora Ã© seu vizinho de porta â e o Ãºnico que sabe o que aconteceu naquele inverno.'
+      : 'A rising lawyer returns to her hometown to find that the heir she sued ten years ago is now her next-door neighbour â and the only one who knows what happened that winter.';
+
+    const weekDays = t.weekDays.map((label, i) => ({
+      label, pick: () => this.set('week', i),
+      css: 'font-family:Figtree;font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;' +
+        (s.week === i ? 'background:rgba(255,61,113,.16);border:1px solid ' + ACC + ';color:#FFAFC6' : 'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#9A97A8')
+    }));
+
+    const navDef = [['home', t.navHome], ['home', t.navK], ['home', t.navC], ['home', t.navFilms], ['home', t.navList]];
+    const navLinks = navDef.map(([id, label], i) => ({
+      label, go: go(id),
+      cls: i === 0 ? 'dh-nav-primary' : 'dh-nav-secondary',
+      css: 'background:none;border:none;font-family:Figtree;font-size:14px;font-weight:600;cursor:pointer;padding:0;white-space:nowrap;flex-shrink:0;color:' +
+        (screen === 'home' && i === 0 ? '#F5F3F7' : '#8D8A9C')
+    }));
+
+    const bnDef = [['home', 'â', t.navHome], ['home', 'â', lang === 'pt' ? 'Buscar' : 'Search'], ['hub', 'ï¼', t.navList], ['account', 'âº', lang === 'pt' ? 'Conta' : 'Account']];
+    const bottomNav = bnDef.map(([id, icon, label], i) => ({
+      icon, label, go: go(id),
+      css: 'flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;padding:0;color:' +
+        ((screen === id && (i === 0 ? screen === 'home' : true)) ? '#FF3D71' : '#75718A')
+    }));
+
+    const faqs = t.faqs.map(([q, a], i) => ({
+      q, a, open: s.faq === i, sign: s.faq === i ? 'â' : '+',
+      toggle: () => this.set('faq', s.faq === i ? -1 : i)
+    }));
+
+    const heroPosters = [
+      { title: nm(0), meta: 'ð°ð· K-Drama Â· 2025', bg: TITLES[0][2], off: '0px' },
+      { title: nm(2), meta: 'ð¨ð³ C-Drama Â· 2024', bg: TITLES[2][2], off: '34px' },
+      { title: nm(5), meta: 'ð°ð· K-Drama Â· 2026', bg: TITLES[5][2], off: '68px' }
+    ];
+
+    const tabBtn = act => 'flex:1;background:' + (act ? 'rgba(255,61,113,.1)' : 'transparent') +
+      ';border:none;border-bottom:2px solid ' + (act ? ACC : 'transparent') +
+      ';color:' + (act ? '#F5F3F7' : '#8D8A9C') + ';font-family:Figtree;font-size:15px;font-weight:700;padding:17px;cursor:pointer';
+
+    return {
+      t, lang,
+      menu,
+      setDesktop: () => this.set('device', 'desktop'), setMobile: () => this.set('device', 'mobile'),
+      cssDesktop: toggBase + (!mobile ? on : off), cssMobile: toggBase + (mobile ? on : off),
+      setPT: () => this.set('lang', 'pt'), setEN: () => this.set('lang', 'en'),
+      cssPT: toggBase + (lang === 'pt' ? on : off), cssEN: toggBase + (lang === 'en' ? on : off),
+
+      frameCss: mobile
+        ? 'display:flex;justify-content:center;width:100%'
+        : 'width:100%;max-width:1440px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:0 30px 80px rgba(0,0,0,.5)',
+
+      isLanding: !mobile && screen === 'landing',
+      isSignup: !mobile && screen === 'signup',
+      isPlan: !mobile && screen === 'plan',
+      isCheckout: !mobile && screen === 'checkout',
+      isOnboarding: !mobile && screen === 'onboarding',
+      isPlayer: !mobile && screen === 'player',
+      isAppDesktop: !mobile && isApp,
+      isHome: screen === 'home', isHub: screen === 'hub',
+      isAccount: screen === 'account', isDevices: screen === 'devices',
+
+      isMobileView: mobile,
+      mHome: mobile && (screen === 'home' || ['landing', 'signup', 'plan', 'checkout', 'onboarding', 'devices'].indexOf(screen) >= 0),
+      mHub: mobile && screen === 'hub',
+      mAccount: mobile && screen === 'account',
+      mPlayer: mobile && screen === 'player',
+      mShowNav: mobile && screen !== 'player',
+
+      goSignup: go('signup'), goPlan: go('plan'), goCheckout: go('checkout'),
+      goOnboarding: go('onboarding'), goHome: go('home'), goHub: go('hub'),
+      goPlayer: go('player'), goAccount: go('account'), goDevices: go('devices'),
+
+      steps: [{ bg: stepBg(true) }, { bg: stepBg(false) }, { bg: stepBg(false) }, { bg: stepBg(false) }],
+      steps2: [{ bg: stepBg(true) }, { bg: stepBg(true) }, { bg: stepBg(false) }, { bg: stepBg(false) }],
+      perks: t.perks.map(([title, body], i) => ({ n: '0' + (i + 1), title, body })),
+      faqs, heroPosters, asideBullets: t.asideBullets, planIncludes: t.planIncludes,
+
+      totalScreens,
+      screensLabel: totalScreens + ' ' + plural(totalScreens),
+      extrasLabel: s.extras === 0 ? (lang === 'pt' ? 'Apenas a tela inclusa' : 'Base screen only') : '+' + s.extras + ' ' + (lang === 'pt' ? 'extra' : 'extra') + ' Â· ' + money(s.extras * per),
+      extrasLine: (lang === 'pt' ? 'Telas extras' : 'Extra screens') + ' (' + s.extras + ')',
+      basePriceF: money(base), extrasPriceF: money(s.extras * per), totalF: money(total),
+      screensWidget: (lang === 'pt' ? '1 tela base' : '1 base screen') + (s.extras ? ' + ' + s.extras + ' ' + (lang === 'pt' ? 'extra' : 'extra') : ''),
+      screenDots, limitDots,
+      incExtra: () => this.setState(st => ({ extras: Math.min(4, st.extras + 1) })),
+      decExtra: () => this.setState(st => ({ extras: Math.max(0, st.extras - 1) })),
+
+      isPix: s.pay === 'pix', isCard: s.pay === 'card',
+      setPix: () => this.set('pay', 'pix'), setCard: () => this.set('pay', 'card'),
+      cssPixTab: tabBtn(s.pay === 'pix'), cssCardTab: tabBtn(s.pay === 'card'),
+
+      genres, onbPosters,
+      navLinks, bottomNav,
+      hero: { title: nm(0), meta: (lang === 'pt' ? '2025 Â· 16 episÃ³dios Â· Romance, JurÃ­dico Â· tvN' : '2025 Â· 16 episodes Â· Romance, Legal Â· tvN'), synopsis: heroSyn },
+      continueRow, topRow, weekRow, weekDays, ostRow, episodes, cast, ostList, devices,
+
+      hubTabs, tabEps: s.hubTab === 'eps', tabCast: s.hubTab === 'cast', tabOst: s.hubTab === 'ost',
+      toggleFav: () => this.set('fav', !s.fav),
+      favLabel: s.fav ? 'â¥ ' + t.faved : 'â¡ ' + t.fav,
+      cssFav: 'background:' + (s.fav ? 'rgba(255,61,113,.16)' : 'rgba(255,255,255,.08)') +
+        ';border:1px solid ' + (s.fav ? ACC : 'rgba(255,255,255,.18)') +
+        ';color:' + (s.fav ? '#FFAFC6' : '#fff') + ';font-family:Figtree;font-weight:700;font-size:15px;padding:15px 22px;border-radius:10px;cursor:pointer',
+
+      playIcon: s.paused ? 'â¶' : 'ââ',
+      togglePlay: () => this.setState(st => ({ paused: !st.paused, glossary: !st.paused ? st.glossary : false })),
+      showGlossary: s.paused && s.glossary,
+      closeGlossary: () => this.set('glossary', false),
+      markers: [['24%', 'Chaebol'], ['52%', 'Sunbae'], ['77%', 'Hanbok']].map(([left, label]) => ({
+        left, label, open: () => this.setState({ paused: true, glossary: true })
+      })),
+
+      showSettings: s.settings,
+      openSettings: () => this.set('settings', true), closeSettings: () => this.set('settings', false),
+      subLangs, qualities,
+      toggleDual: () => this.set('dual', !s.dual),
+      cssDual: 'display:flex;align-items:center;gap:14px;width:100%;margin-top:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;cursor:pointer;color:#F5F3F7;font-family:Figtree',
+      cssDualKnob: 'width:44px;height:26px;border-radius:100px;flex-shrink:0;position:relative;display:block;background:' +
+        (s.dual ? ACC : 'rgba(255,255,255,.16)') +
+        ';box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .2s;' +
+        'background-image:radial-gradient(circle 9px at ' + (s.dual ? '31px' : '13px') + ' 13px,#fff 0 100%,transparent 100%)',
+
+      showLimit: s.limit,
+      closeLimit: () => this.setState({ limit: false, screen: 'home' }),
+      addScreenFromModal: () => this.setState(st => ({ extras: Math.min(4, st.extras + 1), limit: false, screen: 'plan' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
