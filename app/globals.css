@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
+/* Design tokens extraidos 1:1 de docs/design-reference/Dramahub.dc.html */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #07070b;
+  --color-bg-2: #0a0a0f;
+  --color-surface: #13131b;
+  --color-surface-2: #14141d;
+  --color-surface-3: #17171f;
+  --color-accent: #ff3d71;
+  --color-accent-hover: #ff5c88;
+  --color-accent-soft: rgba(255, 61, 113, 0.14);
+  --color-accent-border: rgba(255, 61, 113, 0.35);
+  --color-text: #f5f3f7;
+  --color-text-2: #d6d2e0;
+  --color-text-3: #c4c0d0;
+  --color-text-4: #b6b2c4;
+  --color-text-5: #9a97a8;
+  --color-text-6: #8d8a9c;
+  --color-text-7: #75718a;
+  --color-text-8: #6f6c7e;
+  --color-success: #3ddc97;
+  --color-marker: #ffd166;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-soft: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --font-display: var(--font-unbounded);
+  --font-ui: var(--font-figtree);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--color-bg);
+  --color-bg-2: var(--color-bg-2);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-surface-3: var(--color-surface-3);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-border: var(--color-accent-border);
+  --color-text: var(--color-text);
+  --color-text-2: var(--color-text-2);
+  --color-text-3: var(--color-text-3);
+  --color-text-4: var(--color-text-4);
+  --color-text-5: var(--color-text-5);
+  --color-text-6: var(--color-text-6);
+  --color-text-7: var(--color-text-7);
+  --color-text-8: var(--color-text-8);
+  --color-success: var(--color-success);
+  --color-marker: var(--color-marker);
+  --color-border: var(--color-border);
+  --color-border-soft: var(--color-border-soft);
+  --color-border-strong: var(--color-border-strong);
+  --font-display: var(--font-display);
+  --font-ui: var(--font-ui);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Em @layer base para que utilities do Tailwind (text-white, text-accent...)
+   continuem vencendo a cascata — sem a layer, essas regras (fora de layer)
+   sobrepunham QUALQUER utility de cor em <a>, mesmo com maior especificidade. */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-accent-hover);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+}
+
+@keyframes dhFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes dhPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.dh-fade-in {
+  animation: dhFade 0.4s ease both;
+}
+.dh-pulse {
+  animation: dhPulse 1.8s infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
 }

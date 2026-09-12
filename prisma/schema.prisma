@@ -1,0 +1,166 @@
+// Dramahub — schema Prisma
+// Portado 1:1 da secao 5 da "Especificacao Tecnica de Arquitetura Enterprise:
+// Plataforma de Streaming VOD de Doramas" (docs/design-reference).
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+enum ContentCountry {
+  KR // Coreia do Sul
+  CN // China
+  JP // Japao
+  TW // Taiwan
+  TH // Tailandia
+}
+
+// -------------------------------------------------------------
+// USER & IDENTITY (Sem multiplos perfis)
+// -------------------------------------------------------------
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  cpf          String   @unique
+  passwordHash String
+  fullName     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  subscription      Subscription?
+  registeredDevices Device[]
+  watchProgresses   UserWatchProgress[]
+  favoriteDramas    UserFavorite[]
+}
+
+model Device {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fingerprint String // Hash unico do dispositivo
+  deviceName  String // Ex: Chrome 128 / Android TV
+  lastIp      String
+  lastSeenAt  DateTime @updatedAt
+
+  @@unique([userId, fingerprint])
+}
+
+// -------------------------------------------------------------
+// SUBSCRIPTION & BILLING (Plano 1080p + Add-on de Telas Extra)
+// -------------------------------------------------------------
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  userId               String             @unique
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status               SubscriptionStatus @default(ACTIVE)
+  baseQuality          String             @default("1080p")
+  extraScreensCount    Int                @default(0) // Telas adicionais compradas (Max: 3)
+  stripeSubscriptionId String?            @unique
+  stripeCustomerId     String?
+  currentPeriodEnd     DateTime
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+// -------------------------------------------------------------
+// CATALOG & MEDIA ENGINE
+// -------------------------------------------------------------
+
+model Drama {
+  id              String         @id @default(uuid())
+  titlePortuguese String
+  titleOriginal   String?
+  synopsis        String         @db.Text
+  countryOrigin   ContentCountry @default(KR)
+  releaseYear     Int
+  posterUrl       String
+  bannerUrl       String
+  rating          Decimal?       @db.Decimal(3, 1)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  genres    DramaGenre[]
+  episodes  Episode[]
+  favorites UserFavorite[]
+
+  @@index([countryOrigin])
+}
+
+model Genre {
+  id     String       @id @default(uuid())
+  name   String       @unique
+  dramas DramaGenre[]
+}
+
+model DramaGenre {
+  dramaId String
+  genreId String
+  drama   Drama  @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([dramaId, genreId])
+}
+
+model Episode {
+  id              String   @id @default(uuid())
+  dramaId         String
+  drama           Drama    @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  episodeNumber   Int
+  title           String?
+  manifestUrl     String // URL .m3u8 / .mpd / .mp4 extraida
+  headersJson     Json? // Headers necessarios para o Proxy (Referer, Origin, Cookies)
+  durationSeconds Int?
+  createdAt       DateTime @default(now())
+
+  subtitles       Subtitle[]
+  watchProgresses UserWatchProgress[]
+
+  @@unique([dramaId, episodeNumber])
+}
+
+model Subtitle {
+  id        String  @id @default(uuid())
+  episodeId String
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  language  String // pt-BR, en-US, ko-KR
+  vttUrl    String
+}
+
+// -------------------------------------------------------------
+// USER ENGAGEMENT & HISTORY
+// -------------------------------------------------------------
+
+model UserWatchProgress {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episodeId        String
+  episode          Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  stoppedAtSeconds Int
+  isFinished       Boolean  @default(false)
+  updatedAt        DateTime @updatedAt
+
+  @@unique([userId, episodeId])
+}
+
+model UserFavorite {
+  userId    String
+  dramaId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  drama     Drama    @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, dramaId])
+}
