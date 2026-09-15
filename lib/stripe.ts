@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { prisma } from "@/lib/prisma";
 
 let _stripe: Stripe | null = null;
 
@@ -28,4 +29,31 @@ export function getPriceIds() {
     );
   }
   return { basePriceId, extraScreenPriceId };
+}
+
+/** Releitura do status/periodo de uma assinatura no Stripe para o banco local
+ * — usada pelo webhook e pela acao de admin de cancelar assinatura. */
+export async function syncSubscriptionFromStripe(stripeSubscriptionId: string) {
+  const stripe = getStripe();
+  const sub = await stripe.subscriptions.retrieve(stripeSubscriptionId);
+
+  const status =
+    sub.status === "active" || sub.status === "trialing"
+      ? "ACTIVE"
+      : sub.status === "canceled" || sub.status === "unpaid" || sub.status === "incomplete_expired"
+        ? "CANCELED"
+        : "PAST_DUE";
+
+  const periodEndSeconds = sub.items.data[0]?.current_period_end;
+  const currentPeriodEnd = periodEndSeconds ? new Date(periodEndSeconds * 1000) : undefined;
+
+  await prisma.subscription.updateMany({
+    where: { stripeSubscriptionId },
+    data: {
+      status,
+      ...(currentPeriodEnd ? { currentPeriodEnd } : {}),
+    },
+  });
+
+  return status;
 }

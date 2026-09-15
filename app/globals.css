@@ -121,6 +121,63 @@
   animation: dhPulse 1.8s infinite;
 }
 
+@keyframes dhFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.dh-float {
+  animation: dhFloat 5s ease-in-out infinite;
+}
+
+@keyframes dhGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+.dh-glow {
+  animation: dhGlow 6s ease-in-out infinite;
+}
+
+/* Reveal-on-scroll: estado base escondido, .is-visible e adicionada via
+   IntersectionObserver (ver components/ui/Reveal.tsx). Feito com transition
+   (nao @keyframes) de proposito — precisa reagir a um toggle de classe, nao
+   tocar sozinho ao montar. */
+.dh-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dh-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dh-float,
+  .dh-glow,
+  .dh-pulse {
+    animation: none;
+  }
+  .dh-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

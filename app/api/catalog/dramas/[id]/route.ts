@@ -11,7 +11,7 @@ export async function GET(_request: Request, ctx: RouteContext<"/api/catalog/dra
     include: {
       genres: { include: { genre: true } },
       episodes: {
-        orderBy: { episodeNumber: "asc" },
+        orderBy: [{ season: { seasonNumber: "asc" } }, { episodeNumber: "asc" }],
         include: {
           subtitles: true,
           watchProgresses: userId ? { where: { userId } } : false,
@@ -22,6 +22,11 @@ export async function GET(_request: Request, ctx: RouteContext<"/api/catalog/dra
   });
 
   if (!drama) return NextResponse.json({ error: "not_found" }, { status: 404 });
+
+  if (drama.status !== "PUBLISHED") {
+    const user = userId ? await prisma.user.findUnique({ where: { id: userId } }) : null;
+    if (user?.role !== "ADMIN") return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
 
   return NextResponse.json({
     drama: {

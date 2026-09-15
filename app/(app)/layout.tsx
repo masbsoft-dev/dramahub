@@ -11,7 +11,7 @@ export default async function AppShellLayout({ children }: { children: React.Rea
 
   return (
     <div className="min-h-screen bg-bg relative pb-[80px] md:pb-0">
-      <AppHeader userInitial={initial} />
+      <AppHeader userInitial={initial} isAdmin={user.role === "ADMIN"} />
       <main>{children}</main>
       <BottomNav />
     </div>

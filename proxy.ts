@@ -11,6 +11,7 @@ const PROTECTED_PAGE_PREFIXES = [
   "/dispositivos",
   "/onboarding",
   "/lista",
+  "/admin",
 ];
 
 const RATE_LIMITED_ROUTES: Record<string, { limit: number; windowSeconds: number }> = {
@@ -18,6 +19,7 @@ const RATE_LIMITED_ROUTES: Record<string, { limit: number; windowSeconds: number
   "/api/auth/signup": { limit: 5, windowSeconds: 60 },
   "/api/playback/heartbeat": { limit: 30, windowSeconds: 60 },
   "/api/ingest": { limit: 30, windowSeconds: 60 },
+  "/api/admin/import": { limit: 10, windowSeconds: 60 },
 };
 
 function getClientIp(request: NextRequest): string {

@@ -16,9 +16,15 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const dramas = await safeQuery(
     () =>
       prisma.drama.findMany({
+        where: { status: "PUBLISHED" },
         orderBy: { createdAt: "asc" },
         take: 40,
-        include: { episodes: { orderBy: { episodeNumber: "asc" }, take: 1 } },
+        include: {
+          episodes: {
+            orderBy: [{ season: { seasonNumber: "asc" } }, { episodeNumber: "asc" }],
+            take: 1,
+          },
+        },
       }),
     []
   );
@@ -200,9 +206,9 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
                 <Link
                   key={d.id}
                   href={`/dramas/${d.id}`}
-                  className="bg-surface rounded-xl overflow-hidden border border-white/8 no-underline text-text"
+                  className="bg-surface rounded-xl overflow-hidden border border-white/8 no-underline text-text h-[450px] flex flex-col"
                 >
-                  <div className="h-[150px]" style={posterStyle(d.posterUrl)} />
+                  <div className="flex-1" style={posterStyle(d.posterUrl)} />
                   <div className="px-2.5 py-2 text-xs font-semibold truncate">{d.titlePortuguese}</div>
                 </Link>
               ))}

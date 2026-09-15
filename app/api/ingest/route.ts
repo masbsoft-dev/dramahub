@@ -78,25 +78,36 @@ export async function POST(request: Request) {
         });
       }
 
+      // Contrato de ingestao nao tem conceito de temporada — tudo cai na
+      // temporada 1 do dorama (comportamento correto e nao regressivo).
+      const season = await tx.season.upsert({
+        where: { dramaId_seasonNumber: { dramaId: dramaRecord.id, seasonNumber: 1 } },
+        create: { dramaId: dramaRecord.id, seasonNumber: 1 },
+        update: {},
+      });
+
       for (const ep of episodes) {
         const episode = await tx.episode.upsert({
           where: {
-            dramaId_episodeNumber: {
-              dramaId: dramaRecord.id,
+            seasonId_episodeNumber: {
+              seasonId: season.id,
               episodeNumber: ep.episode_number,
             },
           },
           create: {
             dramaId: dramaRecord.id,
+            seasonId: season.id,
             episodeNumber: ep.episode_number,
             title: ep.title,
             manifestUrl: ep.manifest_url,
+            format: ep.format,
             headersJson: ep.headers_required ?? undefined,
             durationSeconds: ep.duration_seconds,
           },
           update: {
             title: ep.title,
             manifestUrl: ep.manifest_url,
+            format: ep.format,
             headersJson: ep.headers_required ?? undefined,
             durationSeconds: ep.duration_seconds,
           },

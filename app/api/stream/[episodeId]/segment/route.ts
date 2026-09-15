@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { verifyStreamToken } from "@/lib/stream-token";
-import { fetchUpstream, rewriteHlsManifest } from "@/lib/media-proxy";
+import { fetchUpstream, rewriteHlsManifest, readTextWithLimit } from "@/lib/media-proxy";
 
 function isPlaylist(targetUrl: string, contentType: string | null): boolean {
   if (contentType?.includes("mpegurl")) return true;
@@ -48,11 +48,17 @@ export async function GET(
   }
 
   const range = request.headers.get("range");
-  const upstreamRes = await fetchUpstream(
-    targetUrl,
-    episode.headersJson as Record<string, string> | null,
-    range
-  );
+  let upstreamRes: Response;
+  try {
+    upstreamRes = await fetchUpstream(
+      targetUrl,
+      episode.headersJson as Record<string, string> | null,
+      range
+    );
+  } catch (err) {
+    console.error("[stream/segment] falha ao buscar upstream", err);
+    return NextResponse.json({ error: "upstream_timeout_or_error" }, { status: 502 });
+  }
 
   if (!upstreamRes.ok && upstreamRes.status !== 206) {
     return NextResponse.json({ error: "upstream_error" }, { status: 502 });
@@ -62,19 +68,24 @@ export async function GET(
   // suas URIs internas reescritas para o proxy — senao os segmentos que elas
   // referenciam (fileSequenceN.ts etc.) vazam a URL de origem para o player.
   if (isPlaylist(targetUrl, upstreamRes.headers.get("content-type"))) {
-    const manifestText = await upstreamRes.text();
-    const rewritten = rewriteHlsManifest(manifestText, targetUrl, (absoluteUrl) => {
-      const proxyUrl = new URL(url.pathname, url.origin);
-      proxyUrl.searchParams.set("u", Buffer.from(absoluteUrl).toString("base64url"));
-      proxyUrl.searchParams.set("token", token);
-      return proxyUrl.toString();
-    });
-    return new NextResponse(rewritten, {
-      headers: {
-        "Content-Type": "application/vnd.apple.mpegurl",
-        "Cache-Control": "no-store",
-      },
-    });
+    try {
+      const manifestText = await readTextWithLimit(upstreamRes);
+      const rewritten = rewriteHlsManifest(manifestText, targetUrl, (absoluteUrl) => {
+        const proxyUrl = new URL(url.pathname, url.origin);
+        proxyUrl.searchParams.set("u", Buffer.from(absoluteUrl).toString("base64url"));
+        proxyUrl.searchParams.set("token", token);
+        return proxyUrl.toString();
+      });
+      return new NextResponse(rewritten, {
+        headers: {
+          "Content-Type": "application/vnd.apple.mpegurl",
+          "Cache-Control": "no-store",
+        },
+      });
+    } catch (err) {
+      console.error("[stream/segment] sub-playlist invalida ou grande demais", targetUrl, err);
+      return NextResponse.json({ error: "invalid_manifest" }, { status: 502 });
+    }
   }
 
   const headers = new Headers();

@@ -11,6 +11,7 @@ export default async function OnboardingPage() {
   const dramas = await safeQuery(
     () =>
       prisma.drama.findMany({
+        where: { status: "PUBLISHED" },
         orderBy: { createdAt: "asc" },
         take: 10,
         select: { id: true, titlePortuguese: true, posterUrl: true, countryOrigin: true },

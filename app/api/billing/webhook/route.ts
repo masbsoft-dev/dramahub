@@ -1,30 +1,6 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
-import { prisma } from "@/lib/prisma";
-import { getStripe } from "@/lib/stripe";
-
-async function syncFromStripeSubscription(stripeSubscriptionId: string) {
-  const stripe = getStripe();
-  const sub = await stripe.subscriptions.retrieve(stripeSubscriptionId);
-
-  const status =
-    sub.status === "active" || sub.status === "trialing"
-      ? "ACTIVE"
-      : sub.status === "canceled" || sub.status === "unpaid" || sub.status === "incomplete_expired"
-        ? "CANCELED"
-        : "PAST_DUE";
-
-  const periodEndSeconds = sub.items.data[0]?.current_period_end;
-  const currentPeriodEnd = periodEndSeconds ? new Date(periodEndSeconds * 1000) : undefined;
-
-  await prisma.subscription.updateMany({
-    where: { stripeSubscriptionId },
-    data: {
-      status,
-      ...(currentPeriodEnd ? { currentPeriodEnd } : {}),
-    },
-  });
-}
+import { getStripe, syncSubscriptionFromStripe as syncFromStripeSubscription } from "@/lib/stripe";
 
 export async function POST(request: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;

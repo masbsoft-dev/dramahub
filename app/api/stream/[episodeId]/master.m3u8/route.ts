@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { verifyStreamToken } from "@/lib/stream-token";
-import { fetchUpstream, rewriteHlsManifest } from "@/lib/media-proxy";
+import { fetchUpstream, rewriteHlsManifest, readTextWithLimit } from "@/lib/media-proxy";
 
 export async function GET(
   request: Request,
@@ -28,21 +28,33 @@ export async function GET(
   const episode = await prisma.episode.findUnique({ where: { id: episodeId } });
   if (!episode) return NextResponse.json({ error: "not_found" }, { status: 404 });
 
-  const upstreamRes = await fetchUpstream(
-    episode.manifestUrl,
-    episode.headersJson as Record<string, string> | null
-  );
+  let upstreamRes: Response;
+  try {
+    upstreamRes = await fetchUpstream(
+      episode.manifestUrl,
+      episode.headersJson as Record<string, string> | null
+    );
+  } catch (err) {
+    console.error("[stream/master.m3u8] falha ao buscar manifesto upstream", err);
+    return NextResponse.json({ error: "upstream_timeout_or_error" }, { status: 502 });
+  }
   if (!upstreamRes.ok) {
     return NextResponse.json({ error: "upstream_error" }, { status: 502 });
   }
 
-  const manifestText = await upstreamRes.text();
-  const rewritten = rewriteHlsManifest(manifestText, episode.manifestUrl, (absoluteUrl) => {
-    const proxyUrl = new URL(`/api/stream/${episodeId}/segment`, url.origin);
-    proxyUrl.searchParams.set("u", Buffer.from(absoluteUrl).toString("base64url"));
-    proxyUrl.searchParams.set("token", token!);
-    return proxyUrl.toString();
-  });
+  let rewritten: string;
+  try {
+    const manifestText = await readTextWithLimit(upstreamRes);
+    rewritten = rewriteHlsManifest(manifestText, episode.manifestUrl, (absoluteUrl) => {
+      const proxyUrl = new URL(`/api/stream/${episodeId}/segment`, url.origin);
+      proxyUrl.searchParams.set("u", Buffer.from(absoluteUrl).toString("base64url"));
+      proxyUrl.searchParams.set("token", token!);
+      return proxyUrl.toString();
+    });
+  } catch (err) {
+    console.error("[stream/master.m3u8] manifesto invalido ou grande demais", episode.manifestUrl, err);
+    return NextResponse.json({ error: "invalid_manifest" }, { status: 502 });
+  }
 
   return new NextResponse(rewritten, {
     headers: {

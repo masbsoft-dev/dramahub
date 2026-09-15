@@ -192,11 +192,18 @@ async function main() {
       });
     }
 
+    const season = await prisma.season.upsert({
+      where: { dramaId_seasonNumber: { dramaId: drama.id, seasonNumber: 1 } },
+      create: { dramaId: drama.id, seasonNumber: 1 },
+      update: {},
+    });
+
     for (let epNumber = 1; epNumber <= EPISODES_PER_DRAMA; epNumber++) {
       const episode = await prisma.episode.upsert({
-        where: { dramaId_episodeNumber: { dramaId: drama.id, episodeNumber: epNumber } },
+        where: { seasonId_episodeNumber: { seasonId: season.id, episodeNumber: epNumber } },
         create: {
           dramaId: drama.id,
+          seasonId: season.id,
           episodeNumber: epNumber,
           title: `Episódio ${epNumber}`,
           manifestUrl: TEST_MANIFEST_URL,

@@ -25,6 +25,11 @@ enum ContentCountry {
   TH // Tailandia
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 // -------------------------------------------------------------
 // USER & IDENTITY (Sem multiplos perfis)
 // -------------------------------------------------------------
@@ -35,6 +40,7 @@ model User {
   cpf          String   @unique
   passwordHash String
   fullName     String
+  role         Role     @default(USER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -42,6 +48,8 @@ model User {
   registeredDevices Device[]
   watchProgresses   UserWatchProgress[]
   favoriteDramas    UserFavorite[]
+  dramaReactions    UserDramaReaction[]
+  playlistImports   PlaylistImport[]
 }
 
 model Device {
@@ -78,6 +86,17 @@ model Subscription {
 // CATALOG & MEDIA ENGINE
 // -------------------------------------------------------------
 
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum MediaFormat {
+  HLS // manifesto .m3u8, tocado via hls.js/proxy com reescrita de URIs
+  MP4 // arquivo unico, proxeado direto com suporte a Range
+  DASH // .mpd — aceito no contrato de ingestao, sem proxy implementado ainda
+}
+
 model Drama {
   id              String         @id @default(uuid())
   titlePortuguese String
@@ -88,14 +107,57 @@ model Drama {
   posterUrl       String
   bannerUrl       String
   rating          Decimal?       @db.Decimal(3, 1)
+  status          ContentStatus  @default(PUBLISHED)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
-  genres    DramaGenre[]
-  episodes  Episode[]
-  favorites UserFavorite[]
+  genres              DramaGenre[]
+  seasons             Season[]
+  episodes            Episode[]
+  castMembers         CastMember[]
+  soundtrackTracks    SoundtrackTrack[]
+  favorites           UserFavorite[]
+  reactions           UserDramaReaction[]
+  playlistImportItems PlaylistImportItem[]
 
   @@index([countryOrigin])
+  @@index([status])
+}
+
+model Season {
+  id           String   @id @default(uuid())
+  dramaId      String
+  drama        Drama    @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  seasonNumber Int
+  title        String?
+  posterUrl    String?
+  synopsis     String?  @db.Text
+  createdAt    DateTime @default(now())
+
+  episodes Episode[]
+
+  @@unique([dramaId, seasonNumber])
+}
+
+model CastMember {
+  id        String @id @default(uuid())
+  dramaId   String
+  drama     Drama  @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  actorName String
+  roleName  String?
+  photoUrl  String?
+  order     Int    @default(0)
+}
+
+model SoundtrackTrack {
+  id              String  @id @default(uuid())
+  dramaId         String
+  drama           Drama   @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  title           String
+  artistName      String?
+  audioUrl        String?
+  durationSeconds Int?
+  order           Int     @default(0)
 }
 
 model Genre {
@@ -114,20 +176,24 @@ model DramaGenre {
 }
 
 model Episode {
-  id              String   @id @default(uuid())
+  id              String      @id @default(uuid())
   dramaId         String
-  drama           Drama    @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  drama           Drama       @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  seasonId        String
+  season          Season      @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   episodeNumber   Int
   title           String?
+  posterUrl       String? // sobrepoe o poster da temporada/dorama na listagem, se definido
   manifestUrl     String // URL .m3u8 / .mpd / .mp4 extraida
+  format          MediaFormat @default(HLS) // como o proxy deve tratar manifestUrl
   headersJson     Json? // Headers necessarios para o Proxy (Referer, Origin, Cookies)
   durationSeconds Int?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime    @default(now())
 
   subtitles       Subtitle[]
   watchProgresses UserWatchProgress[]
 
-  @@unique([dramaId, episodeNumber])
+  @@unique([seasonId, episodeNumber])
 }
 
 model Subtitle {
@@ -163,4 +229,66 @@ model UserFavorite {
   createdAt DateTime @default(now())
 
   @@id([userId, dramaId])
+}
+
+enum ReactionType {
+  LIKE
+  DISLIKE
+}
+
+model UserDramaReaction {
+  userId    String
+  dramaId   String
+  type      ReactionType
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  drama     Drama        @relation(fields: [dramaId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+
+  @@id([userId, dramaId])
+}
+
+// -------------------------------------------------------------
+// ADMIN — IMPORTACAO DE PLAYLIST M3U (generico, agnostico de fonte)
+// -------------------------------------------------------------
+
+enum PlaylistItemKind {
+  CHANNEL
+  MOVIE
+  SERIES
+  UNKNOWN
+}
+
+enum PlaylistItemStatus {
+  PENDING
+  IMPORTED
+  SKIPPED
+}
+
+model PlaylistImport {
+  id              String   @id @default(uuid())
+  createdByUserId String
+  createdBy       User     @relation(fields: [createdByUserId], references: [id], onDelete: Cascade)
+  sourceLabel     String
+  itemCount       Int      @default(0)
+  createdAt       DateTime @default(now())
+
+  items PlaylistImportItem[]
+}
+
+model PlaylistImportItem {
+  id             String              @id @default(uuid())
+  importId       String
+  import         PlaylistImport      @relation(fields: [importId], references: [id], onDelete: Cascade)
+  kind           PlaylistItemKind
+  name           String
+  groupTitle     String?
+  logoUrl        String?
+  streamUrl      String              @db.Text
+  tvgId          String?
+  status         PlaylistItemStatus  @default(PENDING)
+  createdDramaId String?
+  createdDrama   Drama?              @relation(fields: [createdDramaId], references: [id], onDelete: SetNull)
+
+  @@index([importId, kind])
+  @@index([importId, status])
 }

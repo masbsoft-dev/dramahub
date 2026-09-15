@@ -4,9 +4,9 @@ import { getCurrentUser } from "@/lib/current-user";
 import { getLangFromCookies } from "@/lib/i18n/server";
 import { dictionaries } from "@/lib/i18n/dictionaries";
 import { bannerStyleWithOverlay, posterStyle } from "@/lib/poster";
-import { fakeCast, fakeOst } from "@/lib/fake-cast";
 import { DramaHubTabs } from "@/components/dramahub/DramaHubTabs";
 import { FavoriteButton } from "@/components/dramahub/FavoriteButton";
+import { ReactionButtons } from "@/components/dramahub/ReactionButtons";
 import Link from "next/link";
 
 export default async function DramaHubPage({ params }: PageProps<"/dramas/[id]">) {
@@ -18,40 +18,67 @@ export default async function DramaHubPage({ params }: PageProps<"/dramas/[id]">
     .findUnique({
       where: { id },
       include: {
-        episodes: {
-          orderBy: { episodeNumber: "asc" },
-          include: { watchProgresses: user ? { where: { userId: user.id } } : false },
+        seasons: {
+          orderBy: { seasonNumber: "asc" },
+          include: {
+            episodes: {
+              orderBy: { episodeNumber: "asc" },
+              include: { watchProgresses: user ? { where: { userId: user.id } } : false },
+            },
+          },
         },
+        castMembers: { orderBy: { order: "asc" } },
+        soundtrackTracks: { orderBy: { order: "asc" } },
         favorites: user ? { where: { userId: user.id } } : false,
+        reactions: user ? { where: { userId: user.id } } : false,
       },
     })
     .catch(() => null);
 
   if (!drama) notFound();
+  if (drama.status !== "PUBLISHED" && user?.role !== "ADMIN") notFound();
 
   const isFavorite = user ? drama.favorites.length > 0 : false;
+  const initialReaction = user ? drama.reactions[0]?.type ?? null : null;
 
-  const episodeItems = drama.episodes.map((e) => {
-    const progress = e.watchProgresses[0];
-    const pct =
-      progress && e.durationSeconds
-        ? progress.isFinished
-          ? 100
-          : Math.round((progress.stoppedAtSeconds / e.durationSeconds) * 100)
-        : 0;
-    return {
-      id: e.id,
-      episodeNumber: e.episodeNumber,
-      title: e.title,
-      durationSeconds: e.durationSeconds,
-      pct,
-      bg: drama.posterUrl,
-    };
-  });
+  const allEpisodes = drama.seasons.flatMap((s) => s.episodes);
+  const seasonItems = drama.seasons.map((season) => ({
+    id: season.id,
+    seasonNumber: season.seasonNumber,
+    title: season.title,
+    episodes: season.episodes.map((e) => {
+      const progress = e.watchProgresses[0];
+      const pct =
+        progress && e.durationSeconds
+          ? progress.isFinished
+            ? 100
+            : Math.round((progress.stoppedAtSeconds / e.durationSeconds) * 100)
+          : 0;
+      return {
+        id: e.id,
+        episodeNumber: e.episodeNumber,
+        title: e.title,
+        durationSeconds: e.durationSeconds,
+        pct,
+        bg: e.posterUrl || season.posterUrl || drama.posterUrl,
+      };
+    }),
+  }));
 
-  const cast = fakeCast(drama.id, drama.posterUrl, lang);
-  const ost = fakeOst(drama.id, drama.titlePortuguese);
-  const nextUnwatched = drama.episodes.find((e) => e.watchProgresses.length === 0) ?? drama.episodes[0];
+  const cast = drama.castMembers.map((c) => ({
+    id: c.id,
+    actorName: c.actorName,
+    roleName: c.roleName,
+    photoUrl: c.photoUrl,
+  }));
+  const ost = drama.soundtrackTracks.map((t2) => ({
+    id: t2.id,
+    title: t2.title,
+    artistName: t2.artistName,
+    audioUrl: t2.audioUrl,
+    durationSeconds: t2.durationSeconds,
+  }));
+  const nextUnwatched = allEpisodes.find((e) => e.watchProgresses.length === 0) ?? allEpisodes[0];
 
   return (
     <div>
@@ -80,7 +107,7 @@ export default async function DramaHubPage({ params }: PageProps<"/dramas/[id]">
               <span>{drama.releaseYear}</span>
               <span>·</span>
               <span>
-                {drama.episodes.length} {t.episodes}
+                {allEpisodes.length} {t.episodes}
               </span>
               <span>·</span>
               <span className="bg-white/10 rounded-[5px] px-2.5 py-1 text-xs">1080p</span>
@@ -98,13 +125,14 @@ export default async function DramaHubPage({ params }: PageProps<"/dramas/[id]">
                 </Link>
               )}
               {user && <FavoriteButton dramaId={drama.id} initialFavorite={isFavorite} />}
+              {user && <ReactionButtons dramaId={drama.id} initialReaction={initialReaction} />}
             </div>
           </div>
         </div>
       </div>
 
       <div className="px-6 md:px-9 pb-16">
-        <DramaHubTabs episodes={episodeItems} cast={cast} ost={ost} />
+        <DramaHubTabs seasons={seasonItems} cast={cast} ost={ost} />
       </div>
     </div>
   );

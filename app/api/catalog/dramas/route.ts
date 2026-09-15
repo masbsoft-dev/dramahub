@@ -9,6 +9,7 @@ export async function GET(request: Request) {
 
   const dramas = await prisma.drama.findMany({
     where: {
+      status: "PUBLISHED",
       ...(genre ? { genres: { some: { genre: { name: genre } } } } : {}),
       ...(search
         ? {

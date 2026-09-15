@@ -10,7 +10,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "dotenv -e .env.local -- prisma migrate dev",
     "db:seed": "dotenv -e .env.local -- prisma db seed",
-    "stripe:setup": "dotenv -e .env.local -- tsx scripts/stripe-setup.ts"
+    "stripe:setup": "dotenv -e .env.local -- tsx scripts/stripe-setup.ts",
+    "admin:promote": "dotenv -e .env.local -- tsx scripts/promote-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -19,6 +20,7 @@
     "@upstash/redis": "^1.38.4",
     "bcryptjs": "^3.0.3",
     "hls.js": "^1.7.3",
+    "iptv-playlist-parser": "^0.15.2",
     "jose": "^6.2.12",
     "next": "16.3.4",
     "prisma": "^6.19.3",

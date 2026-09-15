@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { useLang } from "@/lib/i18n/context";
 
-export function AppHeader({ userInitial }: { userInitial: string }) {
+export function AppHeader({ userInitial, isAdmin }: { userInitial: string; isAdmin?: boolean }) {
   const { t } = useLang();
   const pathname = usePathname();
 
@@ -45,6 +45,16 @@ export function AppHeader({ userInitial }: { userInitial: string }) {
           {t.search}
         </span>
       </div>
+
+      {isAdmin && (
+        <Link
+          href="/admin"
+          title="Administração"
+          className="hidden sm:flex w-9 h-9 rounded-[9px] bg-white/6 border border-white/10 text-text-3 text-[15px] items-center justify-center"
+        >
+          ⚙
+        </Link>
+      )}
 
       <Link
         href="/dispositivos"
